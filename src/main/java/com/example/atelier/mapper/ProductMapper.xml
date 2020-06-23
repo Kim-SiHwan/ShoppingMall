@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.atelier.mapper.ProductMapper">
+    <select id="productCount" parameterType="String" resultType="int">
+        select count(pid) as cnt from t_products WHERE product_type=#{productType};
+    </select>
+
+    <select id="productList" parameterType="com.example.atelier.dto.PageVo" resultType="com.example.atelier.domain.Product">
+        SELECT
+            pid,
+            product_content AS productContent,
+            product_title AS productTitle,
+            product_price AS productPrice,
+            product_type AS productType,
+            product_url AS productUrl,
+        FROM t_products ORDER BY pid DESC limit #{page}  , #{psize} ;
+
+    </select>
+
+    <select id="typeList" parameterType="String" resultType="com.example.atelier.domain.Product">
+        SELECT
+            pid,
+            product_content AS productContent,
+            product_title AS productTitle,
+            product_price AS productPrice,
+            product_type AS productType,
+            product_url AS productUrl,
+        FROM t_products WHERE product_type =#{productType};
+    </select>
+
+    <insert id="productInsert" parameterType="com.example.atelier.domain.Product">
+        insert into t_products(product_content,product_title,product_price, product_type)
+         values
+          (#{productContent},#{productTitle} ,#{productPrice}, #{productType});
+    </insert>
+
+    <select id="productDetail" parameterType="Long" resultType="com.example.atelier.domain.Product">
+        SELECT
+            pid,
+            product_content AS productContent,
+            product_title AS productTitle,
+            product_price AS productPrice,
+            product_type AS productType,
+            product_url AS productUrl,
+        FROM t_products WHERE pid = #{pid};
+    </select>
+
+
+
+
+
+</mapper>

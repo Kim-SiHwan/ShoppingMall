@@ -1,0 +1,79 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.opg"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+    <html class="no-js" lang="">
+
+        <head>
+            <meta charset="utf-8">
+            <title></title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="manifest" href="site.webmanifest">
+            <link rel="apple-touch-icon" href="icon.png">
+            <!-- Place favicon.ico in the root directory -->
+            <link rel="stylesheet" href="@{/css/normalize.css}">
+            <link rel="stylesheet" href="@{/css/main.css}">
+            <script src="js/vendor/modernizr-3.8.0.min.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+            <script>window.jQuery || document.write('<script src="@{/js/vendor/jquery-3.4.1.min.js}"><\/script>')</script>
+            <script src="@{js/plugins.js}"></script>
+            <script src="@{js/main.js}"></script>
+            <link rel="stylesheet" th:href="@{/css/imageSlide.css}">
+            <!-- 합쳐지고 최소화된 최신 CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+            <!-- 부가적인 테마 -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+            <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <meta name="theme-color" content="#fafafa">
+        </head>
+
+        <body>
+            <div layout:fragment="header">
+                    <a id="returnMain" th:href="@{/shop/main}">
+                        <i>Atelier</i>
+                    </a>
+
+                <ul id="mainMenu">
+                    <li>menu</a>
+
+                    </li>
+                    <li>menu</a>
+                    <ul id="subMenu">
+                        <li><a href="123">침대</a> </li>
+                        <li><a >소파</a> </li>
+                    </ul>
+                    </li>
+                </ul>
+
+                <form id="formDrop" th:action="@{/}" method="get"></form>
+
+            </div>
+            <hr>
+
+
+            <div layout:fragment="content"></div>
+
+
+            <!--<div layout :fragment="footer">
+                <h1>ㅋㅋ</h1>
+            </div>
+            !-->
+
+            <th:block layout:fragment="script"></th:block>
+
+            <script th:inline=javascript>
+                $(document).on("ready",function (e) {
+                    var form = $("#formDrop");
+                   $(document).on("click","#mainMenu li a",function (e) {
+                       alert($(this).text());
+                       e.preventDefault();
+                       form.attr("action","/shop/type");
+                       form.append("<input type='hidden' name='productType' value='" + $(this).text() + "'>");
+                       form.submit();
+                   })
+                });
+            </script>
+        </body>
+    </html>

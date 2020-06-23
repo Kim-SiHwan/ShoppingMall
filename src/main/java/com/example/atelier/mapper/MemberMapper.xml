@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.atelier.mapper.MemberMapper">
+
+    <select id="findById" parameterType="String" resultType="com.example.atelier.domain.Member">
+        select * from t_members where uid=#{uid};
+    </select>
+
+    <insert id="join" parameterType="com.example.atelier.domain.Member">
+        INSERT INTO t_members(uid, upw, uname, address, call, email)  values (#{uid},#{upw},'김시환','집','4166','naver');
+
+    </insert>
+
+
+
+
+
+</mapper>

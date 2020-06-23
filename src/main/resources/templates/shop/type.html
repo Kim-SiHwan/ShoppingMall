@@ -1,0 +1,62 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+    <div class="panel-body-type">
+
+        <p id="countProduct">총 <b>[[${count}]]</b>개의 상품이 있습니다.</p>
+        <hr style="width: 100%">
+
+        <div id="typeListDiv">
+
+            <ul  style="display: inline-block"  th:each="list:${list}">
+                <li style="display: inline-block; ">
+                    <div id="typeImgDiv">
+                        <a id="typeImgPid" th:href="${list.pid}"><img  style="width: 260px;height: 255px; " th:src="@{'/img/' + ${list.productUrl}}"></a>
+                    </div>
+                    <div class="productTitle">
+                        [[${list.productTitle}]]
+                        [[${list.productPrice}]]
+
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <form id="f1" th:action="@{main}" method="get">
+        </form>
+
+
+    </div>
+</div>
+
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript" th:src="@{'/js/review.js'}"></script>
+    <script th:inline=javascript>
+        $(document).on("ready",function (e) {
+            var fo=$("#f1");
+            $(document).on("click", "#typeImgPid", function (e) {
+                e.preventDefault();
+                var productPid = $(this).attr('href');
+                fo.attr("action", "view");
+                fo.append("<input type='hidden' name='pid' value='" + productPid + "'>");
+                fo.submit();
+
+            })
+        })
+
+    </script>
+</th:block>
+
+</body>
+</html>

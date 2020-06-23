@@ -1,0 +1,48 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <title>Board</title>
+    <meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8"/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <div class="container">
+            <form th:action="@{addProduct}" method="post">
+                <div class="form-group">
+                    <label>ProductTitle</label>
+                    <input class="form-control" name="productTitle" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>ProductPrice</label>
+                    <input class="form-control" name="productPrice" type="text">
+                </div>
+                <div class="form-group">
+                    <select name="productType">
+                        <option>----</option>
+                        <option value="의자">의자</option>
+                        <option value="책상">책상</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>ProductContent</label>
+                    <textarea rows="3" class="form-control" name="productContent"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm pull-right">작성</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+    </script>
+</th:block>
+
+
+</body>

@@ -1,0 +1,128 @@
+
+.fa-angle-right
+{
+  font-size: 30px;
+  color:black;
+  display: inline-block;
+  position: absolute;
+  margin-top: 70px;
+}
+.fa-angle-left
+{
+  font-size: 30px;
+  color:black;
+  display: inline-block;
+  position: absolute;
+  margin-top: 70px;
+
+}
+#selectQuantity
+{width: 30px}
+
+
+
+*{
+
+  margin: 0;
+  padding: 0;
+}
+#returnMain
+{
+  font-size: 30px;
+  margin-left: 30px;
+  text-decoration: none;
+  color:black;
+  display: inline-block;
+}
+.slide
+{
+  background-color: black;
+  width:1100px;
+  height:500px;
+  overflow :hidden;
+  margin: 0 auto;
+}
+.slide ul
+{
+  width:10000px;
+  position:relative;
+  top:0;
+  left:0;
+  font-size:0px;
+}
+.slide ul li{
+  display:inline-block;
+  margin-left: 0px;
+
+}
+.imgList
+{
+  margin: 50px;
+  width: 1400px;
+  padding: 20px;
+
+}
+
+#imgPid
+{
+
+  margin: 15px;
+  padding: 5px;
+
+}
+#countProduct
+{
+  margin-left: 120px;
+}
+
+#typeImgDiv
+{
+ margin: 10px;
+}
+#typeListDiv
+{
+  margin-left: 40px;
+
+}
+
+
+#mainMenu , #subMenu
+{
+  list-style-type: none;
+  margin: 0;
+  padding:0;
+}
+#subMenu
+{
+  padding: 16px 22px;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+
+}
+#mainMenu
+{
+  display: inline-block;
+  position: absolute;
+}
+#mainMenu >li
+{
+  float:left;
+  padding: 30px 70px;
+  border: 5px red;
+
+
+
+}
+#subMenu >li> a
+{
+  text-decoration: none;
+
+
+}
+ul :hover  #subMenu
+{
+  visibility: visible;
+  opacity: 1;
+
+}

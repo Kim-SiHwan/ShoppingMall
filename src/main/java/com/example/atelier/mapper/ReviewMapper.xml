@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.atelier.mapper.ReviewMapper">
+    <select id="reviewList" parameterType="Long" resultType="com.example.atelier.domain.Review">
+        select
+            rno,
+            content,
+            point,
+            pid,
+            uid,
+        FROM t_reviews where pid=#{pid};
+    </select>
+
+    <insert id="addReview" parameterType="com.example.atelier.domain.Review">
+        INSERT INTO t_reviews
+            (pid,uid, content, point)
+        VALUES
+            (#{pid},#{uid}, #{content}, #{point});
+    </insert>
+
+    <delete id="deleteReview" parameterType="Long">
+        DELETE FROM t_reviews where rno=#{rno};
+    </delete>
+
+</mapper>

@@ -1,0 +1,14 @@
+package com.example.atelier.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Review {
+    private Long rno;
+    private String content;
+    private String uid;
+    private Long pid;
+    private int point;
+}

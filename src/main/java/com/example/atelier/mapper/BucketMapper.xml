@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.atelier.mapper.BucketMapper">
+
+    <insert id="addBucket" parameterType="com.example.atelier.domain.Bucket">
+        insert into t_buckets (pid,uid, total_price, quantity ,bucket_url)
+        values
+         (#{pid},#{uid}, #{totalPrice}, #{quantity} ,#{bucketUrl});
+    </insert>
+    <select id="bucketList" resultType="com.example.atelier.domain.Bucket">
+        SELECT
+            bno,
+            total_price AS totalPrice,
+            pid AS productPid,
+            uid AS memberUid,
+            bucket_url AS bucketUrl,
+            quantity
+        FROM t_buckets where uid=#{uid};
+    </select>
+
+
+
+
+</mapper>

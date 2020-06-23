@@ -1,0 +1,133 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+
+        <a th:href="@{/login}">aaa</a>
+        <div class="slide">
+            <ul>
+                <li><img class="rounded" src="/img/썸네일1.jpg" width="1100" height="500"></li>
+                <li><img class="rounded" src="/img/썸네일2.jpg" width="1100" height="500"></li>
+                <li><img class="rounded" src="/img/썸네일3.jpg" width="1100" height="500"></li>
+                <li><img class="rounded" src="/img/썸네일4.jpg" width="1100" height="500"></li>
+                <li><img class="rounded" src="/img/썸네일5.jpg" width="1100" height="500"></li>
+                <li><img class="rounded" src="/img/썸네일6.jpg" width="1100" height="500"></li>
+
+            </ul>
+        </div>
+
+        <div class="imgList">
+            <a id="prev" th:href="${pageVo.page}+1"><i class="fas fa-angle-left"></i></a>
+
+            <ul style="display: inline-block">
+                <li style="display: inline-block; ">
+                    <div class="imgDiv" id="imgDiv">
+
+                    </div>
+                    <div class="productTitle">
+
+
+                    </div>
+                </li>
+
+            </ul>
+            <a id="next" th:href="${pageVo.page}+1"><i class="fas fa-angle-right"></i></a>
+
+        </div>
+
+
+        <form id="f1" th:action="@{main}" method="get">
+        </form>
+
+
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript" th:src="@{'/js/review.js'}"></script>
+    <script th:inline=javascript>
+
+        $(document).on("ready", function (e) {
+            var obj;
+            var pageNumber = 0;
+
+            obj = {page: pageNumber, psize: [[${pageVo.psize}]]};
+            reviewManager.list(obj, list);
+
+            function list(data) {
+                var imageLists = "";
+                for (var i = 0; i < data.length; i++) {
+                    imageLists +=
+                        "<a id='imgPid' href='" + data[i].pid + "'>" +
+                        "<img style='width: 300px;height: 200px' src='/img/" + data[i].productUrl + "'></a>"
+
+                }
+                $('#imgDiv').html(imageLists);
+                console.log(imageLists);
+            };
+            var images;
+            var imgCount;
+            var imgPosition = 1;
+            images = $('.slide ul');
+            imgCount = images.children().length;
+            $(document).on("click", "#nextBtn", function (e) {
+                next();
+            });
+
+            setInterval(function () {
+                next()
+            }, 3500);
+
+            function next() {
+                if (imgCount > imgPosition) {
+                    images.animate({
+                        left: '-=1100px'
+                    });
+                    imgPosition++;
+                } else {
+                    images.animate({
+                        left: '+=5500px'
+                    });
+                    imgPosition = 1;
+                }
+                console.log(imgCount + " " + imgPosition);
+
+            }
+
+            var fo = $("#f1");
+            $(document).on("click", "#prev", function (e) {
+                e.preventDefault();
+                if (pageNumber > 0) {
+                    pageNumber -= 1
+                    obj = {page: pageNumber, psize: [[${pageVo.psize}]]};
+                    reviewManager.list(obj, list);
+                }
+            });
+            $(document).on("click", "#next", function (e) {
+                e.preventDefault();
+                pageNumber += 1
+                obj = {page: pageNumber, psize: [[${pageVo.psize}]]};
+                reviewManager.list(obj, list);
+            });
+
+            $(document).on("click", ".imgDiv a", function (e) {
+                e.preventDefault();
+                var productPid = $(this).attr('href');
+                fo.attr("action", "view");
+                fo.append("<input type='hidden' name='pid' value='" + productPid + "'>");
+                fo.submit();
+            })
+        })
+    </script>
+</th:block>
+
+</body>
+
+</html>
