@@ -1,21 +1,20 @@
-package com.example.atelier;
+package com.example.atelier.config;
 
 import com.example.atelier.domain.Member;
 import com.example.atelier.mapper.MemberMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
-public class ApplicationRunner implements org.springframework.boot.ApplicationRunner{
+@RequiredArgsConstructor
+public class AppRunnerConfig implements ApplicationRunner {
 
-    @Autowired
-    PasswordEncoder pwEncoder;
-    @Autowired
-    MemberMapper memberMapper;
+    private final PasswordEncoder pwEncoder;
+    private final MemberMapper memberMapper;
+
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
