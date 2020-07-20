@@ -3,8 +3,23 @@
 
 <mapper namespace="com.example.atelier.mapper.OrderMapper">
 
-    <select id="orderList" resultType="com.example.atelier.domain">
 
+    <select id="getProductInfo" resultType="com.example.atelier.domain.Product">
+        SELECT * FROM t_products where pid=#{pid};
+    </select>
+    <select id="getUserInfo" resultType="com.example.atelier.domain.Member">
+        SELECT * FROM t_members where uid=#{uid};
+    </select>
+
+    <insert id="orderInput" parameterType="com.example.atelier.domain.Order">
+        INSERT INTO
+            t_orders(pid,uid,order_price,order_address,order_state)
+        VALUES
+            (#{pid},#{uid},#{orderPrice},#{orderAddress},#{orderState});
+
+    </insert>
+    <select id="orderList" resultType="com.example.atelier.domain.Order">
+        SELECT * from t_orders;
     </select>
 
 </mapper>
