@@ -31,19 +31,23 @@
 
         <body>
             <div layout:fragment="header">
-                    <a id="returnMain" th:href="@{/shop/main}">
-                        <i>Atelier</i>
-                    </a>
+                <a id="returnMain" th:href="@{/shop/main}">
+                    <i>Atelier</i>
+                </a>
 
                 <ul id="mainMenu">
                     <li>menu</a>
 
                     </li>
                     <li>menu</a>
-                    <ul id="subMenu">
-                        <li><a href="123">침대</a> </li>
-                        <li><a >소파</a> </li>
-                    </ul>
+                        <ul id="subMenu">
+                            <li>
+                                <a href="123">침대</a>
+                            </li>
+                            <li>
+                                <a>소파</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -64,15 +68,15 @@
             <th:block layout:fragment="script"></th:block>
 
             <script th:inline=javascript>
-                $(document).on("ready",function (e) {
+                $(document).on("ready", function (e) {
                     var form = $("#formDrop");
-                   $(document).on("click","#mainMenu li a",function (e) {
-                       alert($(this).text());
-                       e.preventDefault();
-                       form.attr("action","/shop/type");
-                       form.append("<input type='hidden' name='productType' value='" + $(this).text() + "'>");
-                       form.submit();
-                   })
+                    $(document).on("click", "#mainMenu li a", function (e) {
+                        alert($(this).text());
+                        e.preventDefault();
+                        form.attr("action", "/shop/type");
+                        form.append("<input type='hidden' name='productType' value='" + $(this).text() + "'>");
+                        form.submit();
+                    })
                 });
             </script>
         </body>

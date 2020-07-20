@@ -52,7 +52,9 @@ CREATE TABLE t_orders(
 ono Long auto_increment,
 primary key (ono),
 order_state varchar (50),
-pid varchar(50) references t_products(pid),
+order_price varchar (50),
+order_address varchar (50),
+pid Long references t_products(pid),
 uid varchar(50) references t_members(uid)
 
 );
@@ -96,4 +98,3 @@ INSERT INTO t_reviews ( content, pid, uid ,point) VALUES ('r1',1,'김시환',14)
 INSERT INTO t_reviews ( content, pid, uid ,point) VALUES ('r2',1,'회원2',63);
 INSERT INTO t_reviews ( content, pid, uid ,point) VALUES ('r3',1,'회원1',7);
 INSERT INTO t_reviews ( content, pid, uid ,point) VALUES ('r1',2,'김시환',5);
-INSERT INTO t_orders (order_state, pid, uid) VALUES ('입금대기','1','김시환');

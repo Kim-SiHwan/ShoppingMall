@@ -12,14 +12,30 @@
         <div class="container">
 
             <p>장바구니 상품 </p>
-            <ul th:each="bucketList:${bucketList}">
-                <li>            <img th:src="@{'/img/' + ${bucketList.bucketUrl}}" width="400" height="200">
-                </li>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>체크</th>
+                    <th>상품명</th>
+                    <th>판매가</th>
+                    <th>수량</th>
+                    <th>주문금액</th>
+                    <th>주문관리</th>
+                    <th>배송</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cartList : ${bucketList}">
+                    <td><input type="checkbox" checked="true"></td>
+                    <td><img th:src="@{'/img/' + ${cartList.bucketUrl}}" width="200" height="200"></td>
+                    <td>[[${cartList.totalPrice}]]</td>
+                    <td>[[${cartList.quantity}]]</td>
+                    <td>[[${cartList.totalPrice}]]</td>
+                    <td>택배배송<br>무료배송</td>
+                </tr>
+                </tbody>
+            </table>
 
-            </ul>
-
-            <input type="radio" value="5" name="ab">dd
-            <input type="radio" value="10" name="ba">gg
 
 
         </div>
