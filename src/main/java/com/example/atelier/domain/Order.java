@@ -9,6 +9,7 @@ public class Order {
     private Long ono;
     private String orderPrice;
     private String orderState;
+    private String orderAddress;
     private String uid;
     private Long pid;
 }
