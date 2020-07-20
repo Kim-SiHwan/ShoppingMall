@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BucketService {
+public class CartService {
 
     private final BucketMapper bucketMapper;
 
@@ -22,7 +22,6 @@ public class BucketService {
 
     public void bucketAddService(RequestDto requestDto)
     {
-
         Bucket bucket=new Bucket();
         bucket.setPid(requestDto.getPid());
         bucket.setUid(requestDto.getUid());
