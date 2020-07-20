@@ -1,0 +1,35 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <div class="container">
+            [[${buyer.uid}]]
+            [[${buyer.uname}]]
+            [[${buyer.address}]]
+            [[${buyer.call}]]
+            [[${productInfo.pid}]]
+
+            <form th:action="@{order}" method="get">
+                <input type="hidden" name="orderState" value="입금대기">
+                <input type="hidden" name="totalPrice" value="50000">
+                <input type="hidden" name="orderAddress" th:value="${buyer.address}">
+                <input type="hidden" name="pid" th:value="${productInfo.pid}">
+                <input type="hidden" name="uid" th:value="${buyer.uid}">
+                <button type="submit">구매!</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+
+</script>
+</body>
+
+</html>
