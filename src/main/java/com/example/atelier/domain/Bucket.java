@@ -1,10 +1,11 @@
 package com.example.atelier.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class Bucket {
     private Long bno;
     private int quantity;

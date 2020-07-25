@@ -1,23 +1,22 @@
 package com.example.atelier.mapper;
 
-import com.example.atelier.domain.Bucket;
 import com.example.atelier.domain.Product;
 import com.example.atelier.dto.PageVo;
-import com.example.atelier.dto.RequestDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("com.example.atelier.mapper.ProductMapper")
+@Repository
 public interface ProductMapper {
-    public int productCount(String productType);
 
-    public List<Product> productList(PageVo pageVo);
+   int countProduct(String productType);
 
-    public int productInsert(Product product);
+   List<Product> selectProductList(PageVo pageVo);
 
-    public Product productDetail(Long productId);
+   int insertProduct(Product product);
 
-    public List<Product> typeList(String productType);
+   Product selectProductDetail(Long productId);
+
+   List<Product> selectProductTypeList(String productType);
 
 }

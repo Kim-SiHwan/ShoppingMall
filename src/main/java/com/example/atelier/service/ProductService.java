@@ -2,43 +2,39 @@ package com.example.atelier.service;
 
 import com.example.atelier.domain.Product;
 import com.example.atelier.dto.PageVo;
-import com.example.atelier.dto.RequestDto;
+import com.example.atelier.dto.ProductRequestDto;
 import com.example.atelier.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ProductService {
+
     private final ProductMapper productMapper;
 
-    public int productCountService(String productType)
-    {
-        return productMapper.productCount(productType);
+    public int countProduct(String productType) {
+        return productMapper.countProduct(productType);
     }
-    public List<Product> productListService(PageVo pageVo)
-    {
-        return productMapper.productList(pageVo);
-    }
-    public void productInsertService(RequestDto requestDto)
-    {
 
-        Product product=new Product();
+    public List<Product> selectProductList(PageVo pageVo) {
+        return productMapper.selectProductList(pageVo);
+    }
 
-        product.setProductContent(requestDto.getProductContent());
-        product.setProductTitle(requestDto.getProductTitle());
-        product.setProductPrice(requestDto.getProductPrice());
-        product.setProductType(requestDto.getProductType());
-        productMapper.productInsert(product);
+    @Transactional
+    public void insertProduct(ProductRequestDto requestDto) {
+        productMapper.insertProduct(requestDto.toEntity(requestDto));
     }
-    public Product productDetailService(Long pid)
-    {
-        return productMapper.productDetail(pid);
+
+    public Product selectProductDetail(Long pid) {
+        return productMapper.selectProductDetail(pid);
     }
-    public List<Product> typeListService(String productType) { return productMapper.typeList(productType);}
+
+    public List<Product> selectProductTypeList(String productType) {
+        return productMapper.selectProductTypeList(productType);
+    }
 
 }

@@ -4,9 +4,13 @@ import com.example.atelier.domain.Member;
 import com.example.atelier.domain.Order;
 import org.springframework.stereotype.Repository;
 
-@Repository("com.example.atelier.mapper.MyPageMapper")
+import java.util.List;
+
+@Repository
 public interface MyPageMapper {
-    public Member viewUserInfo(String uid);
-    public Order viewOrderInfo(String uid);
+
+    Member viewUserInfo(String uid);
+
+    List<Order>viewOrderInfo(String uid);
 
 }

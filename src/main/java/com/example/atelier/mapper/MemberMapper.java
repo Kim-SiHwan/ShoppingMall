@@ -1,10 +1,13 @@
 package com.example.atelier.mapper;
 
 import com.example.atelier.domain.Member;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-@Repository("com.example.atelier.mapper.MemberMapper")
+@Repository
 public interface MemberMapper {
-    public Member findById(String uid);
-    public void join(Member member);
+
+    Member findById(String uid);
+
+    void join(Member member);
 }

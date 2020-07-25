@@ -18,17 +18,20 @@ public class AppRunnerConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
-        Member member=new Member();
-        member.setUid("관리자");
-        String encodePw = pwEncoder.encode("1234");
-        member.setUpw(encodePw);
+        Member member=Member.builder()
+                .uid("관리자")
+                .upw(pwEncoder.encode("1234"))
+                .build();
+
         memberMapper.join(member);
-        System.out.println(member.getUid()+" " +member.getUpw());
-        member=new Member();
-        member.setUid("시환");
-        encodePw = pwEncoder.encode("1234");
-        member.setUpw(encodePw);
-        memberMapper.join(member);
-        System.out.println(member.getUid()+" " +member.getUpw());
+
+        //Member member2=Member.createMember("시환",pwEncoder.encode("1234"));
+
+        Member member2=Member.builder()
+                .uid("시환")
+                .upw(pwEncoder.encode("1234"))
+                .build();
+
+        memberMapper.join(member2);
     }
 }

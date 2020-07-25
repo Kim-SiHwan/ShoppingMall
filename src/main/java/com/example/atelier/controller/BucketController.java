@@ -1,6 +1,6 @@
 package com.example.atelier.controller;
 
-import com.example.atelier.dto.RequestDto;
+import com.example.atelier.dto.CartRequestDto;
 import com.example.atelier.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +22,12 @@ public class BucketController {
     private final CartService cartService;
 
     @GetMapping("/bucket")
-    public void bucketHome(Model model, Principal principal)
-    {
+    public void bucketHome(Model model, Principal principal) {
         model.addAttribute("bucketList", cartService.bucketListService(principal.getName()));
     }
+
     @PostMapping("/bucket")
-    public String bucketInsert(RequestDto requestDto)
-    {
+    public String bucketInsert(CartRequestDto requestDto) {
         cartService.bucketAddService(requestDto);
         return "redirect:/shop/main";
     }

@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("com.example.atelier.mapper.BucketMapper")
+@Repository
 public interface BucketMapper {
 
-    public int addBucket(Bucket bucket);
+    int addBucket(Bucket bucket);
 
-    public List<Bucket> bucketList(String uid);
+    List<Bucket> bucketList(String uid);
 }

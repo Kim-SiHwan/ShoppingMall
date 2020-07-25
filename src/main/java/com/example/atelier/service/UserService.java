@@ -1,4 +1,4 @@
-package com.example.atelier.Security;
+package com.example.atelier.service;
 
 import com.example.atelier.domain.Member;
 import com.example.atelier.mapper.MemberMapper;

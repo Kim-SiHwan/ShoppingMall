@@ -1,11 +1,9 @@
 package com.example.atelier.controller;
 
-import com.example.atelier.domain.Order;
-import com.example.atelier.dto.RequestDto;
-import com.example.atelier.mapper.OrderMapper;
+import com.example.atelier.dto.OrderRequestDto;
+import com.example.atelier.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,26 +18,20 @@ import java.security.Principal;
 @RequestMapping("/shop")
 public class OrderController {
 
-    @Autowired
-    OrderMapper orderMapper;
+    private final OrderService orderService;
+
     @PostMapping("/order_form")
-    public void orderForm(RequestDto requestDto, Model model, Principal principal)
-    {
-        model.addAttribute("buyer",orderMapper.getUserInfo(principal.getName()));
+    public void orderForm(OrderRequestDto requestDto, Model model, Principal principal) {
+        model.addAttribute("buyer",orderService.getUserInfoService(principal.getName()));
+        model.addAttribute("productInfo",orderService.getProductInfoService(requestDto.getPid()));
         log.info("이름 "+principal.getName());
-        model.addAttribute("productInfo",orderMapper.getProductInfo(requestDto.getPid()));
         log.info("pid "+requestDto.getPid());
+        //현재 장바구니의 전체구매 상태 막혀있음. 해결해야함
     }
+
     @GetMapping("/order")
-    public String orderSubmit(RequestDto requestDto)
-    {
-        Order order= new Order();
-        order.setOrderAddress(requestDto.getOrderAddress());
-        order.setOrderPrice(requestDto.getTotalPrice());
-        order.setOrderState(requestDto.getOrderState());
-        order.setPid(requestDto.getPid());
-        order.setUid(requestDto.getUid());
-        orderMapper.orderInput(order);
+    public String orderSubmit(OrderRequestDto requestDto) {
+        orderService.orderInputService(OrderRequestDto.toEntity(requestDto));
         return "redirect:/shop/main";
     }
 

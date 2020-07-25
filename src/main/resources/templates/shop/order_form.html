@@ -9,17 +9,68 @@
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <div class="container">
-            [[${buyer.uid}]]
+        <div class="container" >
+
+            <p style="display: inline; font-size: 15pt"><b>Order / Payment</b></p>
+            <p style="display: inline; font-size: 8pt; color: #888888">주문 / 결제</p>
+            <hr>
+            <p style="display: inline; font-size: 15pt"><b>Buyer Info</b></p>
+            <p style="display: inline; font-size: 8pt; color: #888888"> 구매자 정보</p><br>
+            <input type="text" readonly="readonly" th:value="${buyer.uid}"><br>
+            <input type="text" readonly="readonly" th:value="${buyer.uname}"><br>
+            <input type="text" readonly="readonly" th:value="${buyer.call}">
+
+
+            <hr>
+            <p style="display: inline; font-size: 15pt"><b>Recipient Info</b></p>
+            <p style="display: inline; font-size: 8pt; color: #888888"> 수령자 정보</p>            [[${buyer.uid}]]
+            <form th:action="@{order}" method="get">
+
+            <table class="table table-hover">
+                <tr><td>배송지 선택</td>
+                    <td>
+                        <input type="checkbox">최근 배송지
+                        <input type="checkbox">기본 배송지
+                    </td>
+                </tr>
+                <tr><td>수령인 / 배송지명</td><td><input type="text"></td></tr>
+                <tr>
+                    <td>휴대전화</td>
+                    <td>
+                        <select >
+                            <option>010</option>
+                            <option>011</option>
+                        </select> - <input type="text"> - <input type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td>전화번호</td>
+                    <td>
+                        <select >
+                            <option>010</option>
+                            <option>011</option>
+                        </select> - <input type="text"> - <input type="text"> <input type="checkbox">없음
+                    </td>
+                </tr>
+                <tr><td>배송지 주소</td> <td><input type="text" name="orderAddress" th:value="${buyer.address}"></td></tr>
+                <tr>
+                    <td>배송 메모</td>
+                    <td>
+                        <textarea rows="2" cols="70"></textarea>
+                        <br><b>택배기사님에게 남길 메시지를 작성해주세요.</b>
+
+                    </td>
+                </tr>
+            </table>
+
+
             [[${buyer.uname}]]
             [[${buyer.address}]]
             [[${buyer.call}]]
             [[${productInfo.pid}]]
 
-            <form th:action="@{order}" method="get">
                 <input type="hidden" name="orderState" value="입금대기">
                 <input type="hidden" name="totalPrice" value="50000">
-                <input type="hidden" name="orderAddress" th:value="${buyer.address}">
                 <input type="hidden" name="pid" th:value="${productInfo.pid}">
                 <input type="hidden" name="uid" th:value="${buyer.uid}">
                 <button type="submit">구매!</button>

@@ -1,15 +1,20 @@
 package com.example.atelier.domain;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+
 
 @Getter
-@Setter
+@Builder
 public class Member {
+
     private String uid;
     private String upw;
     private String uname;
     private String address;
     private String call;
     private String email;
+
+
+
 }

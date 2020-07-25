@@ -1,10 +1,11 @@
 package com.example.atelier.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class Order {
     private Long ono;
     private String orderPrice;

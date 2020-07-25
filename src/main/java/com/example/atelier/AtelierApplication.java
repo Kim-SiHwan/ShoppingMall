@@ -12,22 +12,11 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@MapperScan(value={"com.example.atelier.mapper"})
-
+@MapperScan(basePackages="com.example.atelier")
 public class AtelierApplication {
 
-    @Autowired
     public static void main(String[] args) {
         SpringApplication.run(AtelierApplication.class, args);
-    }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
-
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        return sessionFactory.getObject();
-
     }
 
 }
