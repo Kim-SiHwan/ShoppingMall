@@ -7,8 +7,17 @@
         select * from t_members where uid=#{uid};
     </select>
 
-    <select id="viewOrderInfo" resultType="com.example.atelier.domain.Order">
+    <select id="viewOrderInfo" resultMap="MyPage">
         SELECT * FROM t_orders WHERE uid=#{uid};
     </select>
+
+    <resultMap id="MyPage" type="map">
+        <result property="ono" column="ono"/>
+        <result property="pid" column="pid"/>
+        <result property="uid" column="uid"/>
+        <result property="orderState" column="order_state"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderAddress" column="order_address"/>
+    </resultMap>
 
 </mapper>
