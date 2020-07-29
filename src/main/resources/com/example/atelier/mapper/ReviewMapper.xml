@@ -2,12 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.example.atelier.mapper.ReviewMapper">
-    <select id="selectReviewList" parameterType="Long" resultType="com.example.atelier.domain.Review">
+    <select id="selectReviewList" parameterType="Long" resultMap="Review">
         select
-            rno,
-            content,
-            pid,
-            uid,
+        *
         FROM t_reviews where pid=#{pid};
     </select>
 
@@ -21,5 +18,14 @@
     <delete id="deleteReview" parameterType="Long">
         DELETE FROM t_reviews where rno=#{rno};
     </delete>
+
+
+    <resultMap id="Review" type="com.example.atelier.domain.Review">
+        <result property="uid" column="uid"/>
+        <result property="pid" column="pid"/>
+        <result property="rno" column="rno"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
 
 </mapper>

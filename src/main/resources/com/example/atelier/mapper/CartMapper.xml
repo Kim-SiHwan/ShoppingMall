@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.atelier.mapper.CartMapper">
+    <insert id="addCart" parameterType="com.example.atelier.domain.Cart">
+        insert into t_Carts (pid,uid, total_price, quantity ,cart_url)
+        values
+         (#{pid},#{uid}, #{totalPrice}, #{quantity} ,#{cartUrl});
+    </insert>
+    <select id="cartList" resultMap="Cart">
+        SELECT
+            *
+        FROM t_carts where uid=#{uid};
+    </select>
+
+    <delete id="deleteCart" parameterType="Long">
+        DELETE FROM t_carts where bno=#{bno};
+    </delete>
+
+    <resultMap id="Cart" type="com.example.atelier.domain.Cart">
+        <result property="uid" column="uid"/>
+        <result property="pid" column="pid"/>
+        <result property="bno" column="bno"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="cartUrl" column="cart_url"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+
+</mapper>

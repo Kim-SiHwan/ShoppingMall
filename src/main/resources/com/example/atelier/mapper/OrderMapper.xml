@@ -5,7 +5,11 @@
 
 
     <select id="getProductInfo" resultType="com.example.atelier.domain.Product">
-        SELECT * FROM t_products where pid=#{pid};
+        SELECT * FROM t_products where pid IN
+        <foreach collection="list" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+
     </select>
     <select id="getUserInfo" resultType="com.example.atelier.domain.Member">
         SELECT * FROM t_members where uid=#{uid};
@@ -15,11 +19,22 @@
         INSERT INTO
             t_orders(pid,uid,order_price,order_address,order_state)
         VALUES
-            (#{pid},#{uid},#{orderPrice},#{orderAddress},#{orderState});
+            (#{pid},#{uid},#{orderPrice},#{orderAddress},'입금대기');
 
     </insert>
     <select id="orderList" resultType="com.example.atelier.domain.Order">
         SELECT * from t_orders;
     </select>
+
+
+
+    <resultMap id="Product" type="com.example.atelier.domain.Product">
+        <result property="pid" column="pid"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productUrl" column="product_url"/>
+        <result property="productTitle" column="product_title"/>
+        <result property="productType" column="product_type"/>
+        <result property="productContent" column="product_content"/>
+    </resultMap>
 
 </mapper>
