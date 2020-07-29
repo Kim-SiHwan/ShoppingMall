@@ -12,7 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewMapper reviewMapper;
-    public List<Review> selectReviewList(Long pid) {
+
+    public List<Review> selectReviewLists(Long pid) {
+        System.out.println("servicelog"+pid);
         return reviewMapper.selectReviewList(pid);
     }
 
