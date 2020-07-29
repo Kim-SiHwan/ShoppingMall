@@ -5,13 +5,15 @@ import com.example.atelier.domain.Order;
 import com.example.atelier.domain.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderMapper {
 
-    Product getProductInfo(Long pid);
+    List<Product> getProductInfo(List<Long> pid);
 
     Member getUserInfo(String uid);
 
-    int orderInput(Order order);
+    int orderInput(Long pid, String uid, String orderAddress, String orderPrice);
 
 }
