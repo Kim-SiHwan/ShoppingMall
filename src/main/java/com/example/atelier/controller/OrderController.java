@@ -23,15 +23,17 @@ public class OrderController {
     @PostMapping("/order_form")
     public void orderForm(OrderRequestDto requestDto, Model model, Principal principal) {
         model.addAttribute("buyer",orderService.getUserInfoService(principal.getName()));
-        model.addAttribute("productInfo",orderService.getProductInfoService(requestDto.getPid()));
+        model.addAttribute("productInfo",orderService.getProductInfoService(requestDto.getOid()));
+        model.addAttribute("orderPrice",requestDto.getOrderPrice());
         log.info("이름 "+principal.getName());
         log.info("pid "+requestDto.getPid());
         //현재 장바구니의 전체구매 상태 막혀있음. 해결해야함
     }
 
-    @GetMapping("/order")
+    @PostMapping("/order")
     public String orderSubmit(OrderRequestDto requestDto) {
-        orderService.orderInputService(OrderRequestDto.toEntity(requestDto));
+        log.info(""+requestDto.getOid().size());
+        orderService.orderInputService(requestDto.getOid(),requestDto.getUid(),requestDto.getOrderAddress(),requestDto.getOrderPrice2());
         return "redirect:/shop/main";
     }
 

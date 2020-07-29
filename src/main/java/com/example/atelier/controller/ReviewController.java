@@ -37,6 +37,7 @@ public class ReviewController {
     }
 
     public List<Review> getReviews(Long pid) {
-        return reviewService.selectReviewList(pid);
+        log.info("reviewlog"+pid);
+        return reviewService.selectReviewLists(pid);
     }
 }

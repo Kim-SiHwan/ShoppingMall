@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,18 +18,24 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/shop")
-public class BucketController {
+public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/bucket")
-    public void bucketHome(Model model, Principal principal) {
-        model.addAttribute("bucketList", cartService.bucketListService(principal.getName()));
+    @GetMapping("/cart")
+    public void cartHome(Model model, Principal principal) {
+        model.addAttribute("cartList", cartService.cartList(principal.getName()));
     }
 
-    @PostMapping("/bucket")
-    public String bucketInsert(CartRequestDto requestDto) {
-        cartService.bucketAddService(requestDto);
+    @PostMapping("/cart")
+    public String cartInsert(CartRequestDto requestDto) {
+        cartService.addCart(requestDto);
         return "redirect:/shop/main";
+    }
+
+    @GetMapping("/delCart")
+    public String cartDelete(CartRequestDto requestDto){
+        cartService.deleteCart(requestDto);
+        return "redirect:/shop/cart";
     }
 }
