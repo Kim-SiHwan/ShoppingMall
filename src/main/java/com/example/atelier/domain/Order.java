@@ -2,7 +2,6 @@ package com.example.atelier.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Builder

@@ -11,5 +11,4 @@ public class Review {
     private String content;
     private String uid;
     private Long pid;
-    private int point;
 }
