@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 public class OrderRequestDto {
 
+    private Long ono;
     private Long pid;
     private String uid;
     private String orderState;
@@ -20,6 +21,7 @@ public class OrderRequestDto {
     private List<OrderRequestDto> orderInfo;
     public static Order toEntity(OrderRequestDto requestDto) {
         return Order.builder()
+                .ono(requestDto.getOno())
                 .pid(requestDto.getPid())
                 .uid(requestDto.getUid())
                 .orderAddress(requestDto.getOrderAddress())
