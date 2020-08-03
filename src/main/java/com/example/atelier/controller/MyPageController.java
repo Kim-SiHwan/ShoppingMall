@@ -18,8 +18,9 @@ public class MyPageController {
     private final MyPageService myPageService;
 
     @GetMapping("/my_page")
-    public void myPage()
+    public void myPage(Model model, Principal principal)
     {
+        model.addAttribute("info",myPageService.viewUserInfoService(principal.getName()));
 
     }
     @GetMapping("/order_page")

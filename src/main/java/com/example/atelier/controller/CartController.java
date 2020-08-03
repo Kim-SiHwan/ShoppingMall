@@ -33,7 +33,7 @@ public class CartController {
         return "redirect:/shop/main";
     }
 
-    @GetMapping("/delCart")
+    @DeleteMapping("/del_cart")
     public String cartDelete(CartRequestDto requestDto){
         cartService.deleteCart(requestDto);
         return "redirect:/shop/cart";
