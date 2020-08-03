@@ -16,4 +16,10 @@ public interface OrderMapper {
 
     int orderInput(Long pid, String uid, String orderAddress, String orderPrice);
 
+    void updatePoint(Integer point, String uid);
+
+    void deleteCart(Long pid, String uid);
+
+    void deleteOrder(Long ono);
+
 }

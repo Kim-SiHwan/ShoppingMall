@@ -22,9 +22,20 @@
             (#{pid},#{uid},#{orderPrice},#{orderAddress},'입금대기');
 
     </insert>
-    <select id="orderList" resultType="com.example.atelier.domain.Order">
-        SELECT * from t_orders;
-    </select>
+
+    <update id="updatePoint">
+        UPDATE t_members SET point = #{point} where uid=#{uid};
+    </update>
+
+    <delete id="deleteCart">
+        DELETE FROM t_carts WHERE pid=#{pid} AND uid=#{uid};
+    </delete>
+
+    <delete id="deleteOrder">
+        DELETE FROM t_orders WHERE ono=#{ono};
+    </delete>
+
+
 
 
 
