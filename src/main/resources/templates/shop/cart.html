@@ -1,0 +1,107 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <div class="container">
+
+            <p>장바구니에 총 <b>[[${#lists.size(cartList)}]]</b>개의 상품이 있습니다.</p>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>체크</th>
+                    <th>상품명</th>
+                    <th>판매가</th>
+                    <th>수량</th>
+                    <th>주문금액</th>
+                    <th>관리</th>
+                    <th>배송</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="tr" th:each="cartList : ${cartList}">
+                    <td id="bno">[[${cartList.bno}]]</td>
+                    <td><input type="checkbox"  checked="true" name="products" th:value="${cartList.pid}" id="checkBox"></td>
+                    <td><img th:src="@{'/img/' + ${cartList.cartUrl}}" width="200" height="200"></td>
+                    <td>[[${cartList.totalPrice}]]</td>
+                    <td>[[${cartList.quantity}]]</td>
+                    <td name="price">[[${cartList.totalPrice}]]</td>
+                    <td><a id="delBtn" >삭제</a></td>
+                    <td>택배배송<br>무료배송</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-sm btn-primary pull-right" id="buyBtn">구매</button>
+            <div id="payZone">
+
+            </div>
+            <form id="deleteForm" th:action="@{del_cart}" method="post">
+                <input type="hidden" name="_method" value="delete">
+            </form>
+
+            <form id="f2" th:action="@{order_form}" method="post">
+                <input type="hidden" name="uid" th:value="${#authentication.name}">
+            </form>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+     $(document).on("ready",function (e) {
+         document.getElementsByName("products").checked;
+         var pids;
+         var pay=0;
+         var pid = new Array();
+         pids=isChecked(pay,pid);
+         $(document).on("click","#buyBtn",function (e) {
+             var fo= $("#f2");
+             fo.append("<input type='hidden' name='oid' value='"+pids+"'>");
+             fo.submit();
+
+
+         });
+
+         $(document).on("click","#checkBox",function (e) {
+             pid= new Array();
+             pay=0;
+             pids=isChecked(pay,pid);
+         });
+
+         $(document).on("click","#delBtn",function (e) {
+             var fo= $('#deleteForm');
+             var bno = $(this).parent().prevAll('#bno').text();
+             fo.append("<input type='hidden' name='bno' value='"+bno+"'>");
+             fo.submit();
+         });
+
+     })
+     function isChecked(pay, pid)
+     {
+         var c= document.getElementsByName("products").length;
+         for(var i=0; i<c; i++)
+         {
+             if(document.getElementsByName("products")[i].checked===true){
+                 pay+= parseInt(document.getElementsByName("price")[i].textContent);
+                 pid.push(document.getElementsByName('products')[i].value);
+             }
+         }
+         pids=pid;
+         var string="<p style='font-size: 20px'>결제 금액은 <b>"+pay+"</b>원 입니다.</p>"
+         $("#payZone").html(string)
+        return pids;
+     }
+
+
+    </script>
+</th:block>
+</body>
+
+</html>

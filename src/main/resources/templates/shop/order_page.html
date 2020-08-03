@@ -1,0 +1,95 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+        <div class="container">
+
+            <div>
+                <p style="font-size: 20px"><b>My Info</b></p>
+                <i class="fa fa-user-circle-o" style="font-size:150px; display:inline-block;color: black"></i>
+                <div style="display: inline-block; position: absolute">
+                    <p style="font-size: 40px; display: inline-block; margin-left: 20px;color: black">[[${info.uname}]]</p>
+                    <p style="font-size: 25px; display: inline-block; margin-left: 20px;color: black">[[${info.uid}]]</p>
+                    <div  style="position: absolute; margin-left: 27px;  display: inline; margin-top: 16px" >
+                        <table border="0"width="215" style=" font-size: 25px">
+                            <tr align="center">
+                                <td>포인트</td>
+                                <td>쿠폰</td>
+                            </tr>
+                            <tr align="center">
+                                <td>[[${info.point}]]</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <p style="font-size:30px; color: black; margin-top: 100px">주문 내역</p>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>주문번호</th>
+                        <th>주문상품</th>
+                        <th>결제금액</th>
+                        <th>배송지</th>
+                        <th>주문상태</th>
+                        <th>주문관리</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderList, c : ${oinfo}">
+                        <td id="ono">[[${orderList.ono}]]</td>
+                        <td><img th:src="@{'/img/' + ${orderList.pid} + '.jpg'}" width="300" height="200"></td>
+                        <td>[[${orderList.orderPrice}]]</td>
+                        <td>[[${orderList.orderAddress}]]</td>
+                        <td>[[${orderList.orderState}]]</td>
+                        <td><a id="delBtn" >삭제</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <form id="deleteForm" th:action="@{del_order}" method="post">
+                <input type="hidden" name="_method" value="delete">
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready",function (e) {
+            $(document).on("click","#delBtn",function (e) {
+                var checkText= $(this).parent().prev().text();
+                var ono = $(this).parent().prevAll('#ono').text();
+                var fo=$('#deleteForm');
+                console.log(checkText);
+                if(checkText==='입금대기')
+                {
+                    fo.append("<input type='hidden' name='ono' value='"+ono+"'>");
+                    fo.submit();
+                }
+                else
+                {
+                    alert("입금대기 상태에서만 취소가 가능합니다.");
+                }
+            })
+            
+        })
+    </script>
+</th:block>
+</body>
+
+</html>

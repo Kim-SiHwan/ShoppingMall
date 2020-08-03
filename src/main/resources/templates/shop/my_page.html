@@ -3,24 +3,84 @@
       layout:decorate="~{/layout/layout1}">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Title</title>
 </head>
 <body>
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <div class="container">
-            [[${info.uname}]]
-            [[${info.call}]]
-            [[${oinfo[0].ono}]]
+
+
+            <div style="margin-left: 175px">
+                <p style="font-size: 20px"><b>My Info</b></p>
+                <i class="fa fa-user-circle-o" style="font-size:150px; display:inline-block;color: black"></i>
+                <div style="display: inline-block; position: absolute">
+                    <p style="font-size: 40px; display: inline-block; margin-left: 20px;color: black">[[${info.uname}]]</p>
+                    <p style="font-size: 25px; display: inline-block; margin-left: 20px;color: black">[[${info.uid}]]</p>
+                    <div  style="position: absolute; margin-left: 27px;  display: inline; margin-top: 16px" >
+                    <table border="0"width="215" style=" font-size: 25px">
+                        <tr align="center">
+                            <td>포인트</td>
+                            <td>쿠폰</td>
+                        </tr>
+                        <tr align="center">
+                            <td>[[${info.point}]]</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div style="display: inline-block; height: 500px; width: 120px; float: left;">
+                <a id="orderPageLink" th:href="@{order_page}"><p onmouseenter="this.style.color='blue'" onmouseout="this.style.color='gray'" style="font-size: 20px; margin-top: 200px; color: gray">주문내역</p></a>
+                <a id="cartLink" th:href="@{cart}"><p onmouseenter="this.style.color='blue'" onmouseout="this.style.color='gray'" style="font-size: 20px; color: gray;">장바구니</p></a>
+            </div>
+            <div style="display: inline-block; width: 70%; margin-left: 70px">
+
+                <p style="font-size: 20px;margin-top: 50px; color: black"><b>기본 회원 정보</b></p>
+
+                <table class="table table-hover">
+                    <tr>
+                        <td style="width: 250px">아이디 : </td>
+                        <td><p><b>[[${info.uid}]]</b></p></td>
+                    </tr>
+                    <tr>
+                        <td>이름 : </td>
+                        <td><p><b>[[${info.uname}]]</b></p></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호 : </td>
+                        <td><p><b>*******</b></p></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호 : </td>
+                        <td><p><b>[[${info.call}]]</b></p></td>
+                    </tr>
+                    <tr>
+                        <td>이메일 : </td>
+                        <td><p><b>[[${info.email}]]</b></p></td>
+                    </tr>
+                    <tr>
+                        <td>주소 : </td>
+                        <td><p><b>[[${info.address}]]</b></p></td>
+                    </tr>
+                </table>
+
+
+
 
 
         </div>
     </div>
 </div>
-<script th:inline="javascript">
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready",function (e) {
 
-</script>
+        })
+
+    </script>
+</th:block>
 </body>
 
 </html>

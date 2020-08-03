@@ -22,26 +22,25 @@
             <p>[[${view.productContent}]]</p>
             정가 : <del th:text="${view.productPrice}*2"></del><br>
             판매가 : <i th:text="${view.productPrice}"></i><br>
-            적립 포인트 : <i th:text="${view.productPrice}/40"></i><br>
             브랜드 : Atelier<br>
             원산지 : 한국<br>
             배송 : 수도권 무료 배송 , 제주 및 산간지역 +5000원 <br>
             <hr>
 
 
-            <form id="f1" th:action="@{bucket}" method="post">
+            <form id="f1" th:action="@{cart}" method="post">
                 <input type="hidden" name="pid" th:value="${view.pid}">
                 <input type="hidden" name="uid" th:value="${#authentication.name}">
-                수량 : <input type="number" name="quantity" min="1" id="selectQuantity" >
-                <input type="hidden" name="bucketUrl" th:value="${view.productUrl}">
+                수량 : <input type="number" name="quantity" min="1" max="1" id="selectQuantity" value="1" >
+                <input type="hidden" name="cartUrl" th:value="${view.productUrl}">
             </form>
             <form id="f2" th:action="@{order_form}" method="post">
-                <input type="hidden" name="pid" th:value="${view.pid}">
+                <input type="hidden" name="oid" th:value="${view.pid}">
                 <input type="hidden" name="uid" th:value="${#authentication.name}">
             </form>
             <div id="totalPriceText">
             </div>
-            <button id="bucketBtn" class="btn btn-primary btn-sm">장바구니 담기</button>
+            <button id="cartBtn" class="btn btn-primary btn-sm">장바구니 담기</button>
             <button id="buyBtn" class="btn btn-primary btn-sm">구매</button>
         </div>
         <p>리뷰</p>
@@ -57,7 +56,11 @@
     <script th:inline=javascript>
 
         $(document).on("ready",function (e) {
-
+            var updateTotalPrice;
+            updateTotalPrice=$('#selectQuantity').val() * [[${view.productPrice}]];
+            var s= '총 결제 금액 : '+ updateTotalPrice;
+            $("#totalPriceText").html(s)
+            //눌렀을 때 input n
             reviewManager.getAll([[${view.pid}]],reviewList);
 
             function reviewList(list) {
@@ -65,6 +68,7 @@
                 for(var i=0; i<list.length; i++)
                 {
                     var listValue=list[i];
+                    alert(listValue.rno+" "+listValue.content);
 
                     ss = ss + "<p>리뷰 번호 : "+listValue.rno+" 상품 : "+[[${view.productTitle}]]+"</p>"+"<hr>"+
                             "<textarea rows='5'style='width: 80%; background-color: white' readonly='readonly'>"
@@ -72,19 +76,18 @@
 
                 }
                 $("#reviewZone").html(ss);
-                console.log(ss);
+                console.log("ss"+ss);
 
             }
 
             var fo= $("#f1");
             var productPrice=[[${view.productPrice}]];
-            var updateTotalPrice;
             $(document).on("click","#selectQuantity",function (e) {
                 updateTotalPrice= productPrice*(this).value;
                 var s= '총 결제 금액 : '+ ( updateTotalPrice);
                 $("#totalPriceText").html(s)
-            })
-            $(document).on("click","#bucketBtn", function (e) {
+            });
+            $(document).on("click","#cartBtn", function (e) {
                 fo.append("<input type='hidden' name='totalPrice' value='" +updateTotalPrice + "'>");
                 fo.submit();
 
@@ -92,7 +95,9 @@
             $(document).on("click","#buyBtn", function (e) {
                var fo2= $("#f2");
                fo2.submit();
+               //눌렀을 때 input number의 값을 보내주어야 함.
             });
+
         })
 
 

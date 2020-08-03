@@ -34,18 +34,29 @@
                 <a id="returnMain" th:href="@{/shop/main}">
                     <i>Atelier</i>
                 </a>
-
+                <div id="topLink">
+                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{join}">Join</a>
+                    <a th:href="@{cart}">Cart</a>
+                    <a th:href="@{my_page}">MyPage</a>
+                </div>
                 <ul id="mainMenu">
                     <li>menu</a>
 
                     </li>
-                    <li>menu</a>
+                    <li>상품타입</a>
                         <ul id="subMenu">
                             <li>
-                                <a href="123">침대</a>
+                                <a>침대</a>
                             </li>
                             <li>
                                 <a>소파</a>
+                            </li>
+                            <li>
+                                <a>의자</a>
+                            </li>
+                            <li>
+                                <a>책상</a>
                             </li>
                         </ul>
                     </li>
@@ -71,7 +82,6 @@
                 $(document).on("ready", function (e) {
                     var form = $("#formDrop");
                     $(document).on("click", "#mainMenu li a", function (e) {
-                        alert($(this).text());
                         e.preventDefault();
                         form.attr("action", "/shop/type");
                         form.append("<input type='hidden' name='productType' value='" + $(this).text() + "'>");
