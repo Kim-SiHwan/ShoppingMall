@@ -19,14 +19,6 @@ public class OrderRequestDto {
     private List<Long>oid;
     private List<String>orderPrice2;
     private List<OrderRequestDto> orderInfo;
-    public static Order toEntity(OrderRequestDto requestDto) {
-        return Order.builder()
-                .ono(requestDto.getOno())
-                .pid(requestDto.getPid())
-                .uid(requestDto.getUid())
-                .orderAddress(requestDto.getOrderAddress())
-                .orderPrice(requestDto.getOrderPrice())
-                .orderState(requestDto.getOrderState())
-                .build();
-    }
+    private List<Long>onoList;
+
 }

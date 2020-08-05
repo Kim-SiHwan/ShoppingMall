@@ -1,8 +1,10 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.opg"
-      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-    <html class="no-js" lang="">
+
+<html class="no-js" lang="">
 
         <head>
             <meta charset="utf-8">
@@ -21,11 +23,12 @@
             <script src="@{js/main.js}"></script>
             <link rel="stylesheet" th:href="@{/css/imageSlide.css}">
             <!-- 합쳐지고 최소화된 최신 CSS -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
             <!-- 부가적인 테마 -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-theme.min.css">
             <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
             <meta name="theme-color" content="#fafafa">
         </head>
 
@@ -35,10 +38,15 @@
                     <i>Atelier</i>
                 </a>
                 <div id="topLink">
+                    <a th:href="@{admin_order_confirm}">
+                        <button type="button" class="btn btn-outline-primary btn-sm" th:if="${#authentication.authorities[0].authority=='ROLE_ADMIN'}">
+                            입금대기 <span class="badge badge-info">[[${forAdmin}]]</span></button>
+                    </a>
                     <a th:href="@{/login}">Login</a>
                     <a th:href="@{join}">Join</a>
                     <a th:href="@{cart}">Cart</a>
                     <a th:href="@{my_page}">MyPage</a>
+
                 </div>
                 <ul id="mainMenu">
                     <li>menu</a>
@@ -71,10 +79,7 @@
             <div layout:fragment="content"></div>
 
 
-            <!--<div layout :fragment="footer">
-                <h1>ㅋㅋ</h1>
-            </div>
-            !-->
+
 
             <th:block layout:fragment="script"></th:block>
 
