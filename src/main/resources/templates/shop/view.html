@@ -1,6 +1,8 @@
 <html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/layout1}">
+      layout:decorate="~{/layout/layout1}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
 
     <title>Board</title>
@@ -16,12 +18,12 @@
             <img class="rounded" style="width: 700px;height: 600px" th:src="@{'/img/' + ${view.productUrl}}">
 
         </div>
-        <div class="pull-right " style="display: inline-block; align-content:center;width: 700px; margin-top: 20px">
+        <div style="display: inline-block; align-content:center;width: 700px; margin-top: 20px; float: right">
             <label th:text="${view.productTitle}"></label>
             <hr>
             <p>[[${view.productContent}]]</p>
             정가 : <del th:text="${view.productPrice}*2"></del><br>
-            판매가 : <i th:text="${view.productPrice}"></i><br>
+            판매가 : [[${view.productPrice}]]<br>
             브랜드 : Atelier<br>
             원산지 : 한국<br>
             배송 : 수도권 무료 배송 , 제주 및 산간지역 +5000원 <br>
@@ -40,13 +42,27 @@
             </form>
             <div id="totalPriceText">
             </div>
-            <button id="cartBtn" class="btn btn-primary btn-sm">장바구니 담기</button>
-            <button id="buyBtn" class="btn btn-primary btn-sm">구매</button>
+            <button id="cartBtn" class="btn btn-outline-primary btn-sm">장바구니 담기</button>
+            <button id="buyBtn" class="btn btn-outline-primary btn-sm">구매</button>
         </div>
-        <p>리뷰</p>
-        <div style="width: 100%" id="reviewZone">
 
+        <p>리뷰</p>
+
+        <div sec:authorize="isAuthenticated()">
+            <hr>
+            <p>댓글 작성</p>
+            <input type="text" class="form-control" th:value="${#authentication.name}" readonly="readonly"
+                   id="inputReplier">
+            <div>
+                <textarea rows="3" cols="30" class="form-control" id="inputReply"
+                          style="width: 93%;display: inline"></textarea>
+                <button class="btn btn-primary btn-sm pull-right btn-sm" id="addReply"
+                        style="display: inline; width: 6.5%;height: 85px; margin-bottom: 78px">작성
+                </button>
+            </div>
         </div>
+
+        <div style="width: 100%" id="reviewZone">        </div>
     </div>
 </div>
 
@@ -60,25 +76,28 @@
             updateTotalPrice=$('#selectQuantity').val() * [[${view.productPrice}]];
             var s= '총 결제 금액 : '+ updateTotalPrice;
             $("#totalPriceText").html(s)
-            //눌렀을 때 input n
             reviewManager.getAll([[${view.pid}]],reviewList);
 
             function reviewList(list) {
-                var ss="";
+                var str="";
                 for(var i=0; i<list.length; i++)
                 {
                     var listValue=list[i];
-                    alert(listValue.rno+" "+listValue.content);
-
-                    ss = ss + "<p>리뷰 번호 : "+listValue.rno+" 상품 : "+[[${view.productTitle}]]+"</p>"+"<hr>"+
+                    str = str + "<p><span class='badge badge-pill badge-info'>작성자</span> :"+listValue.uid+"<br>상품 : "+[[${view.productTitle}]]+"</p>"+
                             "<textarea rows='5'style='width: 80%; background-color: white' readonly='readonly'>"
-                        +listValue.content+"</textarea>";
+                        +listValue.content+"</textarea><hr>";
 
                 }
-                $("#reviewZone").html(ss);
-                console.log("ss"+ss);
-
+                $("#reviewZone").html(str);
             }
+            var obj;
+            $(document).on("click", "#addReply", function (e) {
+                var send_reply_text = $("#inputReply").val();
+                var send_replier = $("#inputReplier").val();
+                obj = {pid: [[${view.pid}]], uid: send_replier, content: send_reply_text};
+                reviewManager.add(obj, reviewList);
+                $("#inputReply").val("");
+            });
 
             var fo= $("#f1");
             var productPrice=[[${view.productPrice}]];

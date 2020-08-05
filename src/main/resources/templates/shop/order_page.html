@@ -55,7 +55,7 @@
                         <td>[[${orderList.orderPrice}]]</td>
                         <td>[[${orderList.orderAddress}]]</td>
                         <td>[[${orderList.orderState}]]</td>
-                        <td><a id="delBtn" >삭제</a></td>
+                        <td><button class="btn btn-outline-danger btn-sm" ><a id="delBtn" >삭제</a></button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -72,8 +72,8 @@
     <script th:inline=javascript>
         $(document).on("ready",function (e) {
             $(document).on("click","#delBtn",function (e) {
-                var checkText= $(this).parent().prev().text();
-                var ono = $(this).parent().prevAll('#ono').text();
+                var checkText= $(this).parent().parent().prev().text();
+                var ono = $(this).parent().parent().prevAll('#ono').text();
                 var fo=$('#deleteForm');
                 console.log(checkText);
                 if(checkText==='입금대기')

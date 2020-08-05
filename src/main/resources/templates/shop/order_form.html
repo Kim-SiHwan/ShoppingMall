@@ -86,14 +86,14 @@
                 <input th:each="productInfo: ${productInfo}"  type="hidden" name="orderPrice2" th:value="${productInfo.productPrice}">
                 <input th:each="productInfo: ${productInfo}"  type="hidden" name="oid" th:value="${productInfo.pid}">
                 <input type="hidden" name="uid" th:value="${buyer.uid}">
-                <button class="btn btn-primary  pull-right" type="submit">구매!</button>
+                <button class="btn btn-outline-primary btn-sm" type="submit" style="float: right">구매!</button>
             </form>
-        <div style="display: inline-block; position: absolute; margin-left: 1090px;">
+        <div style="display: inline-block; position: absolute; margin-left: 1050px;">
             <p style="display: inline; font-size: 15pt"><b>Buyer Info</b></p>
             <p style="display: inline; font-size: 8pt; color: #888888"> 구매자 정보</p><br>
-            <table class="table table-hover" style="width: 150px; height: 120px" >
+            <table class="table table-borderless" style="width: 220px; height: 120px" >
                 <tr>
-                    <td style="width: 90px;">아이디 : </td>
+                    <td style="width: 98px">아이디 : </td>
                     <td>[[${buyer.uid}]]</td>
                 </tr>
                 <tr>
