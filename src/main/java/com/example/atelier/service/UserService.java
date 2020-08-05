@@ -19,16 +19,15 @@ import java.util.List;
 @Service
 
 public class UserService implements UserDetailsService {
-
+    private static final String Role_PREFIX = "ROLE_";
     @Autowired
     MemberMapper mm;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         Member member= mm.findById(username);
-        System.out.println("usert detail : "+username);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority(Role_PREFIX+member.getRole()));
         return new User(member.getUid(),member.getUpw(),authorities);
 
     }

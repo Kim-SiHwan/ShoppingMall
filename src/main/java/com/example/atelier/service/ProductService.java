@@ -37,4 +37,8 @@ public class ProductService {
         return productMapper.selectProductTypeList(productType);
     }
 
+    public int countOrderList(){
+        return productMapper.countOrderList();
+    }
+
 }
