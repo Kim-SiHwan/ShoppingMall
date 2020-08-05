@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,7 +25,6 @@ public class OrderController {
         model.addAttribute("buyer",orderService.getUserInfo(principal.getName()));
         model.addAttribute("productInfo",orderService.getProductInfo(requestDto.getOid()));
         model.addAttribute("orderPrice",requestDto.getOrderPrice());
-        //현재 장바구니의 전체구매 상태 막혀있음. 해결해야함
     }
 
     @PostMapping("/order")

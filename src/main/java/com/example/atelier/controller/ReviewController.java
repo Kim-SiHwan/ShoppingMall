@@ -5,12 +5,13 @@ import com.example.atelier.dto.ReviewRequestDto;
 import com.example.atelier.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Log
+@Slf4j
 @RestController
 @RequestMapping("/review/**")
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class ReviewController {
     public ResponseEntity insertReview(@PathVariable("pid") Long pid,
                                        @RequestBody ReviewRequestDto review) {
         reviewService.insertReview(review);
-        return new ResponseEntity(getAllReviews(pid),HttpStatus.CREATED);
+        return new ResponseEntity(getReviews(pid),HttpStatus.CREATED);
     }
     @DeleteMapping("/{pid}/{rno}")
     public ResponseEntity deleteReview (@PathVariable ("pid")Long pid,
@@ -37,7 +38,6 @@ public class ReviewController {
     }
 
     public List<Review> getReviews(Long pid) {
-        log.info("reviewlog"+pid);
         return reviewService.selectReviewLists(pid);
     }
 }

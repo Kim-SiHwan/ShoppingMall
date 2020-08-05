@@ -22,6 +22,7 @@ public class ProductController {
     @GetMapping("/main")
     public void productList(Model model, PageVo pageVo) {
         model.addAttribute("pageVo",pageVo);
+        model.addAttribute("forAdmin",productService.countOrderList());
     }
 
     @ResponseBody
