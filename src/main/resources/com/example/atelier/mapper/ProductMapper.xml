@@ -36,6 +36,9 @@
           (#{productContent},#{productTitle} ,#{productPrice}, #{productType});
     </insert>
 
+    <select id="countOrderList" resultType="int">
+        SELECT count(ono) as cnt FROM t_orders WHERE order_state='입금대기';
+    </select>
     <select id="selectProductDetail" parameterType="Long" resultType="com.example.atelier.domain.Product">
         SELECT
             pid,

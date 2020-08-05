@@ -4,7 +4,7 @@
 <mapper namespace="com.example.atelier.mapper.OrderMapper">
 
 
-    <select id="getProductInfo" resultType="com.example.atelier.domain.Product">
+    <select id="getProductInfo" resultMap="Product">
         SELECT * FROM t_products where pid IN
         <foreach collection="list" item="pid" open="(" separator="," close=")">
             #{pid}
@@ -34,10 +34,6 @@
     <delete id="deleteOrder">
         DELETE FROM t_orders WHERE ono=#{ono};
     </delete>
-
-
-
-
 
     <resultMap id="Product" type="com.example.atelier.domain.Product">
         <result property="pid" column="pid"/>

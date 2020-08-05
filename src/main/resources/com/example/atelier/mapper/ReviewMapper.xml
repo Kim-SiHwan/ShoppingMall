@@ -20,7 +20,7 @@
     </delete>
 
 
-    <resultMap id="Review" type="com.example.atelier.domain.Review">
+    <resultMap id="Review" type="map">
         <result property="uid" column="uid"/>
         <result property="pid" column="pid"/>
         <result property="rno" column="rno"/>
