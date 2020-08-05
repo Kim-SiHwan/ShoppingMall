@@ -21,6 +21,7 @@ public class AppRunnerConfig implements ApplicationRunner {
         Member member=Member.builder()
                 .uid("관리자")
                 .upw(pwEncoder.encode("1234"))
+                .role("ADMIN")
                 .build();
 
         memberMapper.join(member);
@@ -30,6 +31,7 @@ public class AppRunnerConfig implements ApplicationRunner {
         Member member2=Member.builder()
                 .uid("시환")
                 .upw(pwEncoder.encode("1234"))
+                .role("USER")
                 .build();
 
         memberMapper.join(member2);

@@ -27,7 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/shop/main").permitAll()
                 .antMatchers("/shop/imgList").permitAll()
                 .antMatchers("/shop/view").permitAll()
-                .antMatchers("/h2/*").permitAll();
+                .antMatchers("/shop/admin_order_confirm").hasRole("ADMIN")
+                .antMatchers("/h2/*").permitAll()
+                .antMatchers("/review/**").permitAll();
         http.csrf()
                 .ignoringAntMatchers("/review/**")
                 .ignoringAntMatchers("/shop/imgList")
