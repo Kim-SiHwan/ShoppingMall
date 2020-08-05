@@ -15,6 +15,7 @@ public class Member {
     private String call;
     private String email;
     private Integer point;
+    private String role;
 
 
 
