@@ -1,9 +1,11 @@
 package com.example.atelier.service;
 
 import com.example.atelier.domain.Product;
+import com.example.atelier.domain.Qna;
 import com.example.atelier.dto.PageVo;
 import com.example.atelier.dto.ProductRequestDto;
 import com.example.atelier.mapper.ProductMapper;
+import com.example.atelier.mapper.QnaMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,11 @@ import java.util.List;
 public class ProductService {
 
     private final ProductMapper productMapper;
+    private final QnaMapper qnaMapper;
+
+    public int countQna(Long pid){return qnaMapper.qnaCount(pid);}
+
+    public int countReview(Long pid){return productMapper.countReview(pid);}
 
     public int countProduct(String productType) {
         return productMapper.countProduct(productType);
@@ -39,6 +46,10 @@ public class ProductService {
 
     public int countOrderList(){
         return productMapper.countOrderList();
+    }
+
+    public int needAnswerCount(){
+        return qnaMapper.needAnswerCount();
     }
 
 }
