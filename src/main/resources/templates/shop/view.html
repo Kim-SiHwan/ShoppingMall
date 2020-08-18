@@ -12,9 +12,7 @@
 
 <div layout:fragment="content">
     <div class="panel-body">
-        <div style="display: inline-block; width: 20%" >
-            [[${#authentication.name}]]
-
+        <div style="display: inline-block; width: 20%">
             <img class="rounded" style="width: 700px;height: 600px" th:src="@{'/img/' + ${view.productUrl}}">
 
         </div>
@@ -22,7 +20,9 @@
             <label th:text="${view.productTitle}"></label>
             <hr>
             <p>[[${view.productContent}]]</p>
-            정가 : <del th:text="${view.productPrice}*2"></del><br>
+            정가 :
+            <del th:text="${view.productPrice}*2"></del>
+            <br>
             판매가 : [[${view.productPrice}]]<br>
             브랜드 : Atelier<br>
             원산지 : 한국<br>
@@ -33,7 +33,7 @@
             <form id="f1" th:action="@{cart}" method="post">
                 <input type="hidden" name="pid" th:value="${view.pid}">
                 <input type="hidden" name="uid" th:value="${#authentication.name}">
-                수량 : <input type="number" name="quantity" min="1" max="1" id="selectQuantity" value="1" >
+                수량 : <input type="number" name="quantity" min="1" max="1" id="selectQuantity" value="1">
                 <input type="hidden" name="cartUrl" th:value="${view.productUrl}">
             </form>
             <form id="f2" th:action="@{order_form}" method="post">
@@ -46,50 +46,88 @@
             <button id="buyBtn" class="btn btn-outline-primary btn-sm">구매</button>
         </div>
 
+        <div style="border: solid 1px; margin-top: 20px">
         <p>리뷰</p>
+        <p>상품에 [[${reviewCount}]]개의 리뷰가 존재합니다.</p>
+
 
         <div sec:authorize="isAuthenticated()">
             <hr>
             <p>댓글 작성</p>
-            <input type="text" class="form-control" th:value="${#authentication.name}" readonly="readonly"
-                   id="inputReplier">
+            <input type="text" class="form-control" th:value="${#authentication.name}" readonly="readonly" id="inputReplier" >
             <div>
                 <textarea rows="3" cols="30" class="form-control" id="inputReply"
-                          style="width: 93%;display: inline"></textarea>
+                          style="width: 93%;display: inline" placeholder="리뷰내용을 입력하세요."></textarea>
                 <button class="btn btn-primary btn-sm pull-right btn-sm" id="addReply"
                         style="display: inline; width: 6.5%;height: 85px; margin-bottom: 78px">작성
                 </button>
             </div>
         </div>
 
-        <div style="width: 100%" id="reviewZone">        </div>
+        <div style="width: 100%" id="reviewZone"></div>
+        </div>
+
+        <div style="border: solid 1px">
+        <p><b>Q & A </b>상품문의 총<b>([[${qnaCount}]])</b>건</p>
+        <div sec:authorize="isAuthenticated()">
+            <hr>
+            <p>댓글 작성</p>
+            <input type="text" class="form-control" th:value="${#authentication.name}" readonly="readonly"
+                   id="qnaUser">
+            <div>
+                <input id="questionTitle" type="text" class="form-control" placeholder="문의제목을 입력하세요.">
+                <textarea rows="3" cols="30" class="form-control" id="inputQuestion"
+                          style="width: 93%;display: inline" placeholder="문의 내용을 입력하세요."></textarea>
+                <button class="btn btn-primary btn-sm pull-right btn-sm" id="addQuestion"
+                        style="display: inline; width: 6.5%;height: 85px; margin-bottom: 78px">작성
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th width="200px">작성자</th>
+                <th width="200px">답변여부</th>
+            </tr>
+            </thead>
+            <tbody id="qnaZone">
+
+
+            </tbody>
+        </table>
+        </div>
     </div>
 </div>
 
 
 <th:block layout:fragment="script">
     <script th:inline="javascript" th:src="@{'/js/review.js'}"></script>
+    <script th:inline="javascript" th:src="@{'/js/qna.js'}"></script>
     <script th:inline=javascript>
 
-        $(document).on("ready",function (e) {
+        $(document).on("ready", function (e) {
             var updateTotalPrice;
-            updateTotalPrice=$('#selectQuantity').val() * [[${view.productPrice}]];
-            var s= '총 결제 금액 : '+ updateTotalPrice;
+            updateTotalPrice = $('#selectQuantity').val() * [[${view.productPrice}]];
+            var s = '총 결제 금액 : ' + updateTotalPrice;
             $("#totalPriceText").html(s)
-            reviewManager.getAll([[${view.pid}]],reviewList);
+            reviewManager.getAll([[${view.pid}]], reviewList);
+
 
             function reviewList(list) {
-                var str="";
-                for(var i=0; i<list.length; i++)
-                {
-                    var listValue=list[i];
-                    str = str + "<p><span class='badge badge-pill badge-info'>작성자</span> :"+listValue.uid+"<br>상품 : "+[[${view.productTitle}]]+"</p>"+
-                            "<textarea rows='5'style='width: 80%; background-color: white' readonly='readonly'>"
-                        +listValue.content+"</textarea><hr>";
+                var str = "";
+                for (var i = 0; i < list.length; i++) {
+                    var listValue = list[i];
+                    str = str + "<p><span class='badge badge-pill badge-info'>작성자</span> :" + listValue.uid + "<br>상품 : " + [[${view.productTitle}]] + "</p>" +
+                        "<textarea rows='5'style='width: 80%; background-color: white' readonly='readonly'>"
+                        + listValue.content + "</textarea><hr>";
 
                 }
                 $("#reviewZone").html(str);
             }
+
             var obj;
             $(document).on("click", "#addReply", function (e) {
                 var send_reply_text = $("#inputReply").val();
@@ -99,22 +137,77 @@
                 $("#inputReply").val("");
             });
 
-            var fo= $("#f1");
-            var productPrice=[[${view.productPrice}]];
-            $(document).on("click","#selectQuantity",function (e) {
-                updateTotalPrice= productPrice*(this).value;
-                var s= '총 결제 금액 : '+ ( updateTotalPrice);
+            qnaManager.getAll([[${view.pid}]], qnaList);
+
+            function qnaList(list) {
+                var str = "";
+
+                for (var i = 0; i < list.length; i++) {
+                    var listValue = list[i];
+                    str = str + "<tr id='tr0'>" +
+                        "<td width='80'>" + listValue.qno + "</td>" +
+                        "<td width='550'>" + listValue.title + "</td>" +
+                        "<td>" + listValue.uid + "</td>" +
+                        "<td>" + listValue.state + "</td>" +
+                        "</tr>"+
+
+
+
+                        "<tr id='t1' ><td width='80' ><span class='badge badge-primary'> 내용  </span></td>" + "<td >" +
+                        "<p>" + listValue.question + "</p>" +
+                        "</td></tr>" +
+                        "<tr id='t2'><td width='80'><span class='badge badge-info'> 관리자 </span></td>" +
+                        "<td>" +
+                        "<p>" + listValue.answer + "</p>" +
+                        "</td></tr><hr>";
+                    console.log(str);
+                    $('#qnaZone').html(str);
+                }
+                $('#tr0').nextAll('#t1').hide();
+                $('#tr0').nextAll('#t2').hide();
+
+            };
+
+            $(document).on("click", "#tr0", function (e) {
+                console.log($(this).text());
+                $(this).next().toggle();
+                $(this).next().next().toggle();
+            });
+
+            $(document).on("click", "#addQuestion", function (e) {
+                var sendQuestionTitle= $('#questionTitle').val();
+                var sendQuestion = $("#inputQuestion").val();
+                var sendUser = $("#qnaUser").val();
+                obj = {pid: [[${view.pid}]], uid: sendUser, title:sendQuestionTitle,question:sendQuestion};
+                qnaManager.add(obj, qnaList);
+                $("#inputQuestion").val("");
+                $('#questionTitle').val("");
+            });
+
+
+            var fo = $("#f1");
+            var productPrice = [[${view.productPrice}]];
+            $(document).on("click", "#selectQuantity", function (e) {
+                updateTotalPrice = productPrice * (this).value;
+                var s = '총 결제 금액 : ' + (updateTotalPrice);
                 $("#totalPriceText").html(s)
             });
-            $(document).on("click","#cartBtn", function (e) {
-                fo.append("<input type='hidden' name='totalPrice' value='" +updateTotalPrice + "'>");
-                fo.submit();
+            $(document).on("click", "#cartBtn", function (e) {
+                if ([[${#authentication.name}]] == "anonymousUser") {
+                    alert("로그인이 필요합니다.");
+                } else {
+                    fo.append("<input type='hidden' name='totalPrice' value='" + updateTotalPrice + "'>");
+                    fo.submit();
+                }
 
             });
-            $(document).on("click","#buyBtn", function (e) {
-               var fo2= $("#f2");
-               fo2.submit();
-               //눌렀을 때 input number의 값을 보내주어야 함.
+            $(document).on("click", "#buyBtn", function (e) {
+                if ([[${#authentication.name}]] == "anonymousUser") {
+                    alert("로그인이 필요합니다.");
+                } else {
+                    var fo2 = $("#f2");
+                    fo2.submit();
+                }
             });
 
         })

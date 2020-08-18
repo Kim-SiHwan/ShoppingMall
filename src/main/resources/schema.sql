@@ -60,6 +60,17 @@ pid Long references t_products(pid),
 uid varchar(50) references t_members(uid)
 );
 
+CREATE TABLE t_qna(
+qno Long auto_increment,
+primary key(qno),
+pid Long references t_products(pid),
+uid varchar(50) references t_members(uid),
+title varchar (50),
+question varchar (50),
+answer varchar (50),
+state varchar (50)
+);
+
 INSERT INTO t_members( uid, upw, uname, address, call, email,point,role)  values ('김시환','1234','김시환','집','4166','naver',0,'USER');
 INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
 ('널찍한 책상','기다란 책상','90000','책상','1.jpg');
@@ -89,6 +100,7 @@ INSERT INTO t_products( product_content, product_title, product_price, product_t
 
 
 INSERT INTO t_carts( quantity, total_price, pid, uid,cart_url) values ('1','20000',1,'김시환','책상2.jpg');
+INSERT INTO t_qna( pid, uid, question, answer, state, title) values ('12','김시환','튼튼하냐고','답변대기','답변대기','이거 튼튼해요?');
 
 INSERT INTO t_members ( uid, upw, uname, address, call, email,role ) VALUES ('회원1' ,'1234', '이름1' ,'주소', '폰번호', '이메일','USER');
 INSERT INTO t_members ( uid, upw, uname, address, call, email,role ) VALUES ('회원2' ,'1234', '이름2' ,'주소', '폰번호', '이메일','USER');

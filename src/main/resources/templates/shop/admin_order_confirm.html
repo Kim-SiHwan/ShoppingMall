@@ -37,7 +37,7 @@
             <input type="hidden" name="_method" value="put">
         </form>
 
-        <button id="confirmBtn" class="btn btn-outline-success ">입금확인</button>
+        <button id="confirmBtn" class="btn btn-outline-success" style="float:right">전체승인</button>
 
     </div>
 </div>
@@ -55,7 +55,12 @@
             var fo= $("#form1");
             $(document).on("click","#confirmBtn",function (e) {
                 fo.append("<input type='hidden' name='onoList' value='"+onos+"'>");
-                fo.submit();
+                if(onos.length!=0) {
+                    fo.submit();
+                }
+                else if(onos.length===0){
+                    alert("상품이 존재하지 않습니다.");
+                }
 
 
             });

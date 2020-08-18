@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 
-<html class="no-js" lang="">
+    <html class="no-js" lang="">
 
         <head>
             <meta charset="utf-8">
@@ -39,19 +39,27 @@
                 </a>
                 <div id="topLink">
                     <a th:href="@{admin_order_confirm}">
-                        <button type="button" class="btn btn-outline-primary btn-sm" th:if="${#authentication.authorities[0].authority=='ROLE_ADMIN'}">
-                            입금대기 <span class="badge badge-info">[[${forAdmin}]]</span></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                th:if="${#authentication.authorities[0].authority=='ROLE_ADMIN'}">
+                            입금대기
+                            <span class="badge badge-info">[[${forAdmin}]]</span>
+                        </button>
                     </a>
-                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{admin_answer}">
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                th:if="${#authentication.authorities[0].authority=='ROLE_ADMIN'}">
+                            답변대기
+                            <span class="badge badge-info">[[${qnaCount}]]</span>
+                        </button>
+                    </a>
+                    <a sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                     <a th:href="@{join}">Join</a>
-                    <a th:href="@{cart}">Cart</a>
-                    <a th:href="@{my_page}">MyPage</a>
-
+                    <a id="cartLink" th:href="@{#}">Cart</a>
+                    <a id="myPageLink" th:href="@{#}">MyPage</a>
                 </div>
                 <ul id="mainMenu">
-                    <li>menu</a>
 
-                    </li>
                     <li>상품타입</a>
                         <ul id="subMenu">
                             <li>
@@ -79,8 +87,6 @@
             <div layout:fragment="content"></div>
 
 
-
-
             <th:block layout:fragment="script"></th:block>
 
             <script th:inline=javascript>
@@ -92,6 +98,24 @@
                         form.append("<input type='hidden' name='productType' value='" + $(this).text() + "'>");
                         form.submit();
                     })
+
+                    $(document).on("click", '#cartLink', function (e) {
+                        if ([[${#authentication.name}]] == 'anonymousUser') {
+                            alert("로그인이 필요합니다.");
+                        } else {
+                            $(this).attr("href", "cart");
+                        }
+                    });
+
+                    $(document).on("click", '#myPageLink', function (e) {
+                        if ([[${#authentication.name}]] == 'anonymousUser') {
+                            alert("로그인이 필요합니다.");
+                        } else {
+                            $(this).attr("href", "my_page");
+                        }
+                    });
+
+
                 });
             </script>
         </body>
