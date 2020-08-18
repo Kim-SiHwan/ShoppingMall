@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface ProductMapper {
 
+   int countReview(Long pid);
+
    int countProduct(String productType);
 
    List<Product> selectProductList(PageVo pageVo);
