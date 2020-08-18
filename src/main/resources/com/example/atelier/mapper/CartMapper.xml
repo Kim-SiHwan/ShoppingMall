@@ -3,9 +3,9 @@
 
 <mapper namespace="com.example.atelier.mapper.CartMapper">
     <insert id="addCart" parameterType="com.example.atelier.domain.Cart">
-        insert into t_Carts (pid,uid, total_price, quantity ,cart_url)
-        values
-         (#{pid},#{uid}, #{totalPrice}, #{quantity} ,#{cartUrl});
+        INSERT INTO t_carts (pid,uid, total_price, quantity ,cart_url)
+        VALUES
+        (#{pid},#{uid}, #{totalPrice}, #{quantity} ,#{cartUrl});
     </insert>
     <select id="cartList" resultMap="Cart">
         SELECT

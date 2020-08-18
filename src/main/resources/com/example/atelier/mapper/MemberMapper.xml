@@ -4,11 +4,13 @@
 <mapper namespace="com.example.atelier.mapper.MemberMapper">
 
     <select id="findById" parameterType="String" resultType="com.example.atelier.domain.Member">
-        select * from t_members where uid=#{uid};
+       SELECT * FROM t_members WHERE uid=#{uid};
     </select>
 
     <insert id="join" parameterType="com.example.atelier.domain.Member">
-        INSERT INTO t_members(uid, upw, uname, address, call, email,role)  values (#{uid},#{upw},'김시환','집','4166','naver',#{role});
+        INSERT INTO t_members(uid, upw, uname, address, call, email,role)
+        VALUES
+        (#{uid},#{upw},'김시환','집','4166','naver',#{role});
 
     </insert>
 

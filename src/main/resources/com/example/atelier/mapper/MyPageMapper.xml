@@ -4,7 +4,7 @@
 <mapper namespace="com.example.atelier.mapper.MyPageMapper">
 
     <select id="viewUserInfo" resultType="com.example.atelier.domain.Member">
-        select * from t_members where uid=#{uid};
+       SELECT * FROM t_members WHERE uid=#{uid};
     </select>
 
     <select id="viewOrderInfo" resultMap="MyPage">

@@ -3,54 +3,52 @@
 
 <mapper namespace="com.example.atelier.mapper.ProductMapper">
 
-    <select id="countProduct" parameterType="String" resultType="int">
-        select count(pid) as cnt from t_products WHERE product_type=#{productType};
+    <select id="countReview" resultType="int">
+        SELECT count(rno) AS cnt FROM t_reviews WHERE pid=#{pid};
     </select>
 
-    <select id="selectProductList" parameterType="com.example.atelier.dto.PageVo" resultType="com.example.atelier.domain.Product">
+    <select id="countProduct" parameterType="String" resultType="int">
+        SELECT count(pid) AS cnt FROM t_products WHERE product_type=#{productType};
+    </select>
+
+    <select id="selectProductList" parameterType="com.example.atelier.dto.PageVo" resultMap="Product">
         SELECT
-            pid,
-            product_content AS productContent,
-            product_title AS productTitle,
-            product_price AS productPrice,
-            product_type AS productType,
-            product_url AS productUrl,
+        *
         FROM t_products ORDER BY pid DESC limit #{page}  , #{psize} ;
 
     </select>
 
-    <select id="selectProductTypeList" parameterType="String" resultType="com.example.atelier.domain.Product">
+    <select id="selectProductTypeList" parameterType="String" resultMap="Product">
         SELECT
-            pid,
-            product_content AS productContent,
-            product_title AS productTitle,
-            product_price AS productPrice,
-            product_type AS productType,
-            product_url AS productUrl,
+        *
         FROM t_products WHERE product_type =#{productType};
     </select>
 
     <insert id="insertProduct" parameterType="com.example.atelier.domain.Product">
-        insert into t_products(product_content,product_title,product_price, product_type)
-         values
-          (#{productContent},#{productTitle} ,#{productPrice}, #{productType});
+       INSERT INTO t_products(product_content,product_title,product_price, product_type,product_url)
+       VALUES
+       (#{productContent},#{productTitle} ,#{productPrice}, #{productType}, #{productUrl});
     </insert>
 
     <select id="countOrderList" resultType="int">
         SELECT count(ono) as cnt FROM t_orders WHERE order_state='입금대기';
     </select>
-    <select id="selectProductDetail" parameterType="Long" resultType="com.example.atelier.domain.Product">
+
+    <select id="selectProductDetail" parameterType="Long" resultMap="Product">
         SELECT
-            pid,
-            product_content AS productContent,
-            product_title AS productTitle,
-            product_price AS productPrice,
-            product_type AS productType,
-            product_url AS productUrl,
+        *
         FROM t_products WHERE pid = #{pid};
     </select>
 
 
+    <resultMap id="Product" type="com.example.atelier.domain.Product">
+        <result property="pid" column="pid"/>
+        <result property="productTitle" column="product_title"/>
+        <result property="productContent" column="product_content"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productType" column="product_type"/>
+        <result property="productUrl" column="product_url"/>
+    </resultMap>
 
 
 

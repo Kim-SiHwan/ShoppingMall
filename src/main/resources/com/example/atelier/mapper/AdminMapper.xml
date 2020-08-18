@@ -8,11 +8,15 @@
     </select>
 
     <update id="updateOrderState">
-        UPDATE t_orders SET order_state='입금확인'
+        UPDATE t_orders SET order_state='입금확인(제작중)'
         WHERE ono IN
         <foreach collection ="list" item="ono" open="(" separator="," close=")">
         #{ono}
         </foreach>
+    </update>
+
+    <update id="updateAnswer">
+        UPDATE t_qna SET state='답변완료', answer=#{answer} WHERE qno=#{qno};
     </update>
 
     <resultMap id="Order" type="map">
