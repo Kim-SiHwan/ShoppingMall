@@ -1,6 +1,7 @@
 package com.example.atelier.controller;
 
 import com.example.atelier.dto.OrderRequestDto;
+import com.example.atelier.dto.QnaRequestDto;
 import com.example.atelier.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +23,21 @@ public class AdminController {
         model.addAttribute("list",adminService.orderList());
     }
 
+    @GetMapping("/admin_answer")
+    public void getQnaList(Model model){
+        model.addAttribute("list",adminService.qnaList());
+    }
+
     @PutMapping("/confirm_order")
-        public String confirmOrder(OrderRequestDto requestDto){
+    public String confirmOrder(OrderRequestDto requestDto){
         adminService.updateOrderState(requestDto.getOnoList());
         return "redirect:/shop/admin_order_confirm";
+    }
+
+    @PutMapping("/submit_answer")
+    public String updateAnswer(QnaRequestDto requestDto){
+        adminService.updateAnswer(requestDto);
+        return "redirect:/shop/admin_answer" ;
     }
 
 

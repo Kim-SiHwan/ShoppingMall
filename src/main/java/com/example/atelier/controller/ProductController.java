@@ -23,6 +23,7 @@ public class ProductController {
     public void productList(Model model, PageVo pageVo) {
         model.addAttribute("pageVo",pageVo);
         model.addAttribute("forAdmin",productService.countOrderList());
+        model.addAttribute("qnaCount",productService.needAnswerCount());
     }
 
     @ResponseBody
@@ -31,19 +32,23 @@ public class ProductController {
         return new ResponseEntity<>(productService.selectProductList(pageVo),HttpStatus.OK);
     }
 
-    @GetMapping("/addProduct")
-    public String addProductForm() {
-        return "shop/addProduct";
+    @GetMapping("/add_product")
+    public String addProductForm(){
+        return "shop/add_product";
     }
 
-    @PostMapping("/addProduct")
+
+    @PostMapping("/add_product")
     public String addProduct(ProductRequestDto requestDto) {
         productService.insertProduct(requestDto);
         return "redirect:/shop/main";
     }
+
     @GetMapping("/view")
     public void productDetail(Long pid, Model model) {
         model.addAttribute("view",productService.selectProductDetail(pid));
+        model.addAttribute("reviewCount",productService.countReview(pid));
+        model.addAttribute("qnaCount",productService.countQna(pid));
     }
 
     @GetMapping("/type")

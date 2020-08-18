@@ -4,7 +4,6 @@ import com.example.atelier.domain.Review;
 import com.example.atelier.dto.ReviewRequestDto;
 import com.example.atelier.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
