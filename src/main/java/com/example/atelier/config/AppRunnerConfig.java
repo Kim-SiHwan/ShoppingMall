@@ -18,6 +18,7 @@ public class AppRunnerConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
+
         Member member=Member.builder()
                 .uid("관리자")
                 .upw(pwEncoder.encode("1234"))
