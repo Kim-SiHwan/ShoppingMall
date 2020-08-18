@@ -1,0 +1,105 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div layout:fragment="content">
+    <div class="panel-body-type">
+
+
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <p class="modal-title" id="modalHeader">Modal Heading</p>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body" id="question">
+                        Modal body..
+                    </div>
+                    <div class="modal-body" id="answer">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" id="submitBtn" data-dismiss="modal">작성
+                        </button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover" style="table-layout: fixed;">
+            <tr>
+                <th width="100">문의번호</th>
+                <th width="100">문의고객</th>
+                <th>문의상품</th>
+                <th width="200">문의제목</th>
+                <th>문의내용</th>
+                <th width="100">문의관리</th>
+            </tr>
+            <tr th:each="list :${list}">
+                <td id="questionNumber">[[${list.qno}]]</td>
+                <td id="userName">[[${list.uid}]]</td>
+                <td><img th:src="@{'/img/' + ${list.pid} + '.jpg'}" width="300" height="200"></td>
+                <td id="questionTitle"> [[${list.title}]]</td>
+                <td id="questionContent" style="word-break: break-all">[[${list.question}]]</td>
+                <td>
+                    <button id="submitAnswer" class="btn btn-success btn-sm" data-target="#myModal" data-toggle="modal">
+                        답변하기
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <form id="form1" th:action="@{submit_answer}" method="post">
+            <input type="hidden" name="_method" value="put">
+        </form>
+
+
+    </div>
+</div>
+
+</div>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready", function (e) {
+
+
+            $(document).on("click", "#submitAnswer", function (e) {
+                var questionNumber = $(this).parent().prevAll('#questionNumber').text();
+                var userName = $(this).parent().prevAll('#userName').text();
+                var questionTitle = $(this).parent().prevAll('#questionTitle').text();
+                var questionContent = $(this).parent().prevAll('#questionContent').text();
+                console.log(userName);
+                var mHeader = "문의번호 : " + questionNumber + " <br>문의고객 : " + userName + "<br>제목 : <b>" + questionTitle + "</b>";
+                var mBody = "<b>문의내용</b> <br>" + questionContent;
+                var mAnswer = "<b>답변하기</b> <br><textarea id='answerText' class='form-control' rows='5'></textarea>"
+                $('#modalHeader').html(mHeader);
+                $('#question').html(mBody);
+                $('#answer').html(mAnswer);
+
+                var fo = $('#form1');
+                $(document).on("click", "#submitBtn", function (e) {
+                    var answerContent = $('#answerText').val();
+                    fo.append("<input type='hidden' name='qno' value='" + questionNumber + "'>");
+                    fo.append("<input type='hidden' name='answer' value='" + answerContent + "'>");
+                    fo.submit();
+                })
+
+            });
+
+
+        });
+
+    </script>
+</th:block>
+
+</body>
+</html>
