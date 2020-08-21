@@ -10,7 +10,7 @@
     <insert id="join" parameterType="com.example.atelier.domain.Member">
         INSERT INTO t_members(uid, upw, uname, address, call, email,role)
         VALUES
-        (#{uid},#{upw},'김시환','집','4166','naver',#{role});
+        (#{uid},#{upw},#{uname},#{address},#{call},#{email},#{role});
 
     </insert>
 

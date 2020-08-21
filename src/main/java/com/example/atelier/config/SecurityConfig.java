@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/review/**")
                 .ignoringAntMatchers("/qna/**")
                 .ignoringAntMatchers("/shop/imgList")
-                .ignoringAntMatchers("/h2/**");
+                .ignoringAntMatchers("/h2/**")
+                .ignoringAntMatchers("/shop/join");
         http.headers().frameOptions().disable();
         http.formLogin().defaultSuccessUrl("/shop/main");
         http.logout().logoutSuccessUrl("/shop/main");

@@ -1,0 +1,92 @@
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.ney.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div layout:fragment="content">
+    <div class="panel-body-type">
+        <div class="col-md-6 col-md-offset-3">
+            <p>회원가입</p>
+            <div class="panel panel-default content-main">
+                <form id="joinForm" th:action="@{join}" method="post">
+                    <label for="uid">아이디</label>
+                    <input class="form-control" type="text" id="uid" name="uid" placeholder="아이디 입력">
+                    <label for="upw">비밀번호</label>
+                    <input class="form-control" type="password" id="upw" name="upw" placeholder="비밀번호 입력">
+                    <label for="upw2">비밀번호 재입력</label>
+                    <input class="form-control" type="password" id="upw2" name="upw2" placeholder="비밀번호 재입력">
+                    <label for="uname">이름</label>
+                    <input class="form-control" type="text" id="uname" name="uname" placeholder="이름 입력">
+                    <label for="address">주소</label>
+                    <input class="form-control" type="text" id="address" name="address" placeholder="주소 입력">
+                    <label for="firstNumber">핸드폰 번호</label><br>
+                    <select id="firstNumber" class="form-control" style="width:100px; display: inline-block">
+                        <option>010</option>
+                        <option>011</option>
+                    </select> -
+                    <input class="form-control" type="text" id="middleNumber" style="width:100px;display: inline-block"> -
+                    <input class="form-control" type="text" id="lastNumber" style="width: 100px;display: inline-block">
+
+
+                    <br>
+                    <label for="firstEmail">이메일</label><br>
+                    <input class="form-control" type="text" id="firstEmail" style="width: 250px;display: inline-block"> @
+                    <select id="domain" class="form-control" style="width: 200px;display: inline-block">
+                        <option>naver.com</option>
+                        <option>daum.net</option>
+                        <option>gmail.com</option>
+                    </select><br>
+                    <button id="submitBtn" class="btn btn-success btn-sm pull-right">가입하기</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</div>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready", function (e) {
+            $(document).on("click", "#submitBtn", function (e) {
+                if ($("#uid").val().length === 0) {
+                    alert("아이디를 입력하세요.");
+                    $("#uid").focus().return;
+                    return false;
+                }
+                if ($("#upw").val().length === 0) {
+                    alert("비밀번호를 입력하세요.");
+                    $("#upw").focus().return;
+                    return false;
+                }
+                if ($("#uname").val().length === 0) {
+                    alert("이름을 입력하세요.");
+                    $("#uname").focus().return;
+                    return false;
+                }
+
+
+                var fo= $('#joinForm');
+                if ($('#upw').val()===$('#upw2').val()){
+                    var phoneNumber = $('#firstNumber').val()+ $('#middleNumber').val()+$('#lastNumber').val();
+                    var email = $('#firstEmail').val()+"@"+$('#domain').val();
+                    fo.append("<input type='hidden' name='call' value='" + phoneNumber + "'>");
+                    fo.append("<input type='hidden' name='email' value='" + email + "'>");
+                    fo.submit();
+                }
+            });
+
+
+        });
+
+    </script>
+</th:block>
+
+</body>
+</html>
