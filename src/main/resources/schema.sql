@@ -96,6 +96,18 @@ INSERT INTO t_products( product_content, product_title, product_price, product_t
 ('1인용 인체공학적 디자인의 소파','체어 소파','190000','소파','11.jpg');
 INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
 ('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','12.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','13.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','14.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','15.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','16.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','17.jpg');
+INSERT INTO t_products( product_content, product_title, product_price, product_type, product_url) VALUES
+('작지만 실용적이고 유니크한 디자인의 소파','라운드 소파','150000','소파','18.jpg');
 
 
 
