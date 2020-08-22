@@ -30,8 +30,11 @@ var reviewManager = (function () {
       data: JSON.stringify(obj),
       contentType: "application/json",
       dataType: 'json',
-      success: callback
-    });
+      success: callback,
+    })
+    .fail(function () {
+      alert("구매한 고객만 리뷰를 달 수 있습니다.");
+    })
 
   };
 

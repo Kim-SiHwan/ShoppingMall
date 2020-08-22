@@ -10,13 +10,7 @@
     </select>
 
     <insert id="insertReview" parameterType="com.example.atelier.domain.Review">
-        <selectKey keyProperty="rno" order="BEFORE"
-                   resultType="Long">
-            SELECT (MAX(rno) + 1) AS rno FROM t_reviews
-        </selectKey>
-        INSERT INTO t_reviews SELECT #{rno}, #{content},#{pid}, #{uid}
-        FROM dual WHERE exists
-        (SELECT * FROM t_orders WHERE uid=#{uid} AND pid=#{pid})
+        INSERT INTO t_reviews (content,uid,pid) VALUES (#{content}, #{uid}, #{pid});
     </insert>
 
     <delete id="deleteReview" parameterType="Long">

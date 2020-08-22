@@ -26,8 +26,10 @@ public class ReviewController {
     @PostMapping("/{pid}")
     public ResponseEntity insertReview(@PathVariable("pid") Long pid,
                                        @RequestBody ReviewRequestDto review) {
-        reviewService.insertReview(review);
-        return new ResponseEntity(getReviews(pid),HttpStatus.CREATED);
+        if(reviewService.insertReview(review)==true)
+            return new ResponseEntity(getReviews(pid),HttpStatus.OK);
+        else
+            return new ResponseEntity(getReviews(pid),HttpStatus.BAD_REQUEST);
     }
     @DeleteMapping("/{pid}/{rno}")
     public ResponseEntity deleteReview (@PathVariable ("pid")Long pid,

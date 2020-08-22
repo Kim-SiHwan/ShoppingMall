@@ -13,6 +13,8 @@ public interface OrderMapper {
 
     Member getUserInfo(String uid);
 
+    boolean getBoolean(String uid, Long pid);
+
     int orderInput(Long pid, String uid, String orderAddress, String orderPrice);
 
     void updatePoint(Integer point, String uid);

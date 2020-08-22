@@ -3,6 +3,9 @@
 
 <mapper namespace="com.example.atelier.mapper.OrderMapper">
 
+    <select id="getBoolean" resultType="boolean">
+        SELECT * FROM t_orders WHERE uid=#{uid} AND pid =#{pid};
+    </select>
 
     <select id="getProductInfo" resultMap="Product">
         SELECT * FROM t_products where pid IN
