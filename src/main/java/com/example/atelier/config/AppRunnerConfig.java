@@ -35,7 +35,6 @@ public class AppRunnerConfig implements ApplicationRunner {
 
         //Member member2=Member.createMember("시환",pwEncoder.encode("1234"));
 
-        log.info("run???");
         Member member2=Member.builder()
                 .uid("시환")
                 .upw(pwEncoder.encode("1234"))

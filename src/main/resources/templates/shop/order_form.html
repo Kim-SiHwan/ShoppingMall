@@ -45,7 +45,7 @@
                             <select>
                                 <option>010</option>
                                 <option>011</option>
-                            </select> - <input type="text"> - <input type="text"> <input type="checkbox">없음
+                            </select> - <input type="text"> - <input type="text"> <input type="checkbox" id="phoneCheck">없음
                         </td>
                     </tr>
                     <tr>
@@ -109,9 +109,16 @@
 
     </div>
 </div>
-<script th:inline="javascript">
-
-</script>
+<th:block layout:fragment="script">
+    <script th:inline=javascript>
+        $(document).on("ready",function (e) {
+            $(document).on('click','#phoneCheck',function (e) {
+                $(this).prev().attr('readonly','true');
+                $(this).prev().prev().attr('readonly','true');
+            })
+        })
+    </script>
+</th:block>
 </body>
 
 </html>
