@@ -10,9 +10,9 @@
 
 <div layout:fragment="content">
     <div class="panel-body-type">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3" style="margin-left: 400px">
             <p>회원가입</p>
-            <div class="panel panel-default content-main">
+            <div>
                 <form id="joinForm" th:action="@{join}" method="post">
                     <label for="uid">아이디</label>
                     <input class="form-control" type="text" id="uid" name="uid" placeholder="아이디 입력">
@@ -29,19 +29,19 @@
                         <option>010</option>
                         <option>011</option>
                     </select> -
-                    <input class="form-control" type="text" id="middleNumber" style="width:100px;display: inline-block"> -
+                    <input class="form-control" type="text" id="middleNumber" style="width:100px;display: inline-block">
+                    -
                     <input class="form-control" type="text" id="lastNumber" style="width: 100px;display: inline-block">
-
-
                     <br>
                     <label for="firstEmail">이메일</label><br>
-                    <input class="form-control" type="text" id="firstEmail" style="width: 250px;display: inline-block"> @
+                    <input class="form-control" type="text" id="firstEmail" style="width: 250px;display: inline-block">
+                    @
                     <select id="domain" class="form-control" style="width: 200px;display: inline-block">
                         <option>naver.com</option>
                         <option>daum.net</option>
                         <option>gmail.com</option>
                     </select><br>
-                    <button id="submitBtn" class="btn btn-success btn-sm pull-right">가입하기</button>
+                    <button id="submitBtn" class="btn btn-success btn-sm float-right">가입하기</button>
                 </form>
             </div>
         </div>
@@ -55,27 +55,43 @@
     <script th:inline=javascript>
         $(document).on("ready", function (e) {
             $(document).on("click", "#submitBtn", function (e) {
+                var phoneNumber = $('#firstNumber').val() + $('#middleNumber').val() + $('#lastNumber').val();
+                var email = $('#firstEmail').val() + "@" + $('#domain').val();
                 if ($("#uid").val().length === 0) {
                     alert("아이디를 입력하세요.");
-                    $("#uid").focus().return;
+                    $("#uid").focus();
                     return false;
                 }
                 if ($("#upw").val().length === 0) {
                     alert("비밀번호를 입력하세요.");
-                    $("#upw").focus().return;
+                    $("#upw").focus();
                     return false;
                 }
                 if ($("#uname").val().length === 0) {
                     alert("이름을 입력하세요.");
-                    $("#uname").focus().return;
+                    $("#uname").focus();
                     return false;
                 }
 
+                if ($('#address').val().length === 0) {
+                    alert("주소를 입력하세요.");
+                    $('#address').focus();
+                    return false;
+                }
+                if($('#middleNumber').val().length===0 || $('#lastNumber').val().length===0){
+                    alert("핸드폰 번호를 입력하세요.");
+                    $('#middleNumber').focus();
+                    phoneNumber =  '';
+                }
+                if($('#firstEmail').val().length===0){
+                    alert("이메일 주소를 입력하세요");
+                    $('#firstEmail').focus();
+                    email='';
+                }
 
-                var fo= $('#joinForm');
-                if ($('#upw').val()===$('#upw2').val()){
-                    var phoneNumber = $('#firstNumber').val()+ $('#middleNumber').val()+$('#lastNumber').val();
-                    var email = $('#firstEmail').val()+"@"+$('#domain').val();
+
+                var fo = $('#joinForm');
+                if ($('#upw').val() === $('#upw2').val()) {
                     fo.append("<input type='hidden' name='call' value='" + phoneNumber + "'>");
                     fo.append("<input type='hidden' name='email' value='" + email + "'>");
                     fo.submit();
